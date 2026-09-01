@@ -1,0 +1,2332 @@
+[
+  {
+    "id": "ngc-224",
+    "primary_name": "NGC 224",
+    "common_name": "Andromeda Galaxy",
+    "catalogue_ids": [
+      "M31",
+      "NGC 224"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 10.675,
+    "dec": 41.266667,
+    "magnitude": 3.4,
+    "angular_size": 190,
+    "beginner_prior": 100,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-221",
+    "primary_name": "NGC 221",
+    "common_name": "Andromeda's companion",
+    "catalogue_ids": [
+      "M32",
+      "NGC 221"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 10.675,
+    "dec": 40.866667,
+    "magnitude": 8.1,
+    "angular_size": 9,
+    "beginner_prior": 55,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-205",
+    "primary_name": "NGC 205",
+    "common_name": "Andromeda's outer companion",
+    "catalogue_ids": [
+      "M110",
+      "NGC 205"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 10.1,
+    "dec": 41.683333,
+    "magnitude": 8.1,
+    "angular_size": 22,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-598",
+    "primary_name": "NGC 598",
+    "common_name": "Triangulum Galaxy",
+    "catalogue_ids": [
+      "M33",
+      "NGC 598"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 23.475,
+    "dec": 30.65,
+    "magnitude": 5.7,
+    "angular_size": 71,
+    "beginner_prior": 92,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-869",
+    "primary_name": "NGC 869",
+    "common_name": "Double Cluster (west)",
+    "catalogue_ids": [
+      "NGC 869",
+      "h Persei"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 34.75,
+    "dec": 57.15,
+    "magnitude": 4.3,
+    "angular_size": 30,
+    "beginner_prior": 95,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-884",
+    "primary_name": "NGC 884",
+    "common_name": "Double Cluster (east)",
+    "catalogue_ids": [
+      "NGC 884",
+      "\u03c7 Persei"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 35.6,
+    "dec": 57.116667,
+    "magnitude": 4.4,
+    "angular_size": 30,
+    "beginner_prior": 95,
+    "metadata": {}
+  },
+  {
+    "id": "melotte-20",
+    "primary_name": "Melotte 20",
+    "common_name": "Alpha Persei Cluster",
+    "catalogue_ids": [
+      "Melotte 20",
+      "Collinder 39"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 50.5,
+    "dec": 49.0,
+    "magnitude": 1.2,
+    "angular_size": 185,
+    "beginner_prior": 80,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-884b",
+    "primary_name": "NGC 884B",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 884"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 35.6,
+    "dec": 57.116667,
+    "magnitude": 4.4,
+    "angular_size": 30,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1039",
+    "primary_name": "NGC 1039",
+    "common_name": "Spiral Cluster",
+    "catalogue_ids": [
+      "M34",
+      "NGC 1039"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 40.525,
+    "dec": 42.783333,
+    "magnitude": 5.2,
+    "angular_size": 35,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1432",
+    "primary_name": "NGC 1432",
+    "common_name": "Pleiades",
+    "catalogue_ids": [
+      "M45",
+      "Pleiades"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 56.75,
+    "dec": 24.116667,
+    "magnitude": 1.6,
+    "angular_size": 110,
+    "beginner_prior": 100,
+    "metadata": {}
+  },
+  {
+    "id": "melotte-25",
+    "primary_name": "Melotte 25",
+    "common_name": "Hyades",
+    "catalogue_ids": [
+      "Hyades",
+      "Melotte 25"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 66.75,
+    "dec": 15.866667,
+    "magnitude": 0.5,
+    "angular_size": 330,
+    "beginner_prior": 88,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1499",
+    "primary_name": "NGC 1499",
+    "common_name": "California Nebula",
+    "catalogue_ids": [
+      "NGC 1499"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 60.825,
+    "dec": 36.366667,
+    "magnitude": 6.0,
+    "angular_size": 145,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1514",
+    "primary_name": "NGC 1514",
+    "common_name": "Crystal Ball Nebula",
+    "catalogue_ids": [
+      "NGC 1514"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 62.325,
+    "dec": 30.783333,
+    "magnitude": 10.9,
+    "angular_size": 2,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1528",
+    "primary_name": "NGC 1528",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 1528"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 63.85,
+    "dec": 51.216667,
+    "magnitude": 6.4,
+    "angular_size": 24,
+    "beginner_prior": 55,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1647",
+    "primary_name": "NGC 1647",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 1647"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 71.5,
+    "dec": 19.066667,
+    "magnitude": 6.4,
+    "angular_size": 45,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1746",
+    "primary_name": "NGC 1746",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 1746"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 75.9,
+    "dec": 23.816667,
+    "magnitude": 6.1,
+    "angular_size": 42,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1912",
+    "primary_name": "NGC 1912",
+    "common_name": "Starfish Cluster",
+    "catalogue_ids": [
+      "M38",
+      "NGC 1912"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 82.175,
+    "dec": 35.833333,
+    "magnitude": 6.4,
+    "angular_size": 21,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1960",
+    "primary_name": "NGC 1960",
+    "common_name": "Pinwheel Cluster",
+    "catalogue_ids": [
+      "M36",
+      "NGC 1960"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 84.075,
+    "dec": 34.133333,
+    "magnitude": 6.0,
+    "angular_size": 12,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1976",
+    "primary_name": "NGC 1976",
+    "common_name": "Orion Nebula",
+    "catalogue_ids": [
+      "M42",
+      "NGC 1976"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 83.825,
+    "dec": -5.383333,
+    "magnitude": 4.0,
+    "angular_size": 85,
+    "beginner_prior": 100,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1982",
+    "primary_name": "NGC 1982",
+    "common_name": "De Mairan's Nebula",
+    "catalogue_ids": [
+      "M43",
+      "NGC 1982"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 83.875,
+    "dec": -5.266667,
+    "magnitude": 9.0,
+    "angular_size": 20,
+    "beginner_prior": 60,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2068",
+    "primary_name": "NGC 2068",
+    "common_name": "Messier 78",
+    "catalogue_ids": [
+      "M78",
+      "NGC 2068"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 86.675,
+    "dec": 0.05,
+    "magnitude": 8.3,
+    "angular_size": 8,
+    "beginner_prior": 68,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2099",
+    "primary_name": "NGC 2099",
+    "common_name": "Salt-and-Pepper Cluster",
+    "catalogue_ids": [
+      "M37",
+      "NGC 2099"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 88.075,
+    "dec": 32.55,
+    "magnitude": 5.6,
+    "angular_size": 24,
+    "beginner_prior": 78,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2168",
+    "primary_name": "NGC 2168",
+    "common_name": "Messier 35",
+    "catalogue_ids": [
+      "M35",
+      "NGC 2168"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 92.225,
+    "dec": 24.333333,
+    "magnitude": 5.1,
+    "angular_size": 28,
+    "beginner_prior": 75,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2244",
+    "primary_name": "NGC 2244",
+    "common_name": "Rosette Cluster",
+    "catalogue_ids": [
+      "NGC 2244"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 98.1,
+    "dec": 4.866667,
+    "magnitude": 4.8,
+    "angular_size": 24,
+    "beginner_prior": 80,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2237",
+    "primary_name": "NGC 2237",
+    "common_name": "Rosette Nebula",
+    "catalogue_ids": [
+      "NGC 2237"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 97.925,
+    "dec": 5.05,
+    "magnitude": 9.0,
+    "angular_size": 80,
+    "beginner_prior": 82,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2264",
+    "primary_name": "NGC 2264",
+    "common_name": "Christmas Tree Cluster",
+    "catalogue_ids": [
+      "NGC 2264",
+      "Cone Nebula"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 100.25,
+    "dec": 9.883333,
+    "magnitude": 3.9,
+    "angular_size": 20,
+    "beginner_prior": 78,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2287",
+    "primary_name": "NGC 2287",
+    "common_name": "Messier 41",
+    "catalogue_ids": [
+      "M41",
+      "NGC 2287"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 101.5,
+    "dec": -20.733333,
+    "magnitude": 4.5,
+    "angular_size": 38,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2323",
+    "primary_name": "NGC 2323",
+    "common_name": "Messier 50",
+    "catalogue_ids": [
+      "M50",
+      "NGC 2323"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 105.7,
+    "dec": -8.333333,
+    "magnitude": 5.9,
+    "angular_size": 16,
+    "beginner_prior": 55,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2392",
+    "primary_name": "NGC 2392",
+    "common_name": "Eskimo Nebula",
+    "catalogue_ids": [
+      "NGC 2392"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 112.3,
+    "dec": 20.916667,
+    "magnitude": 9.2,
+    "angular_size": 0.8,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2422",
+    "primary_name": "NGC 2422",
+    "common_name": "Messier 47",
+    "catalogue_ids": [
+      "M47",
+      "NGC 2422"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 114.15,
+    "dec": -14.5,
+    "magnitude": 4.4,
+    "angular_size": 30,
+    "beginner_prior": 60,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2437",
+    "primary_name": "NGC 2437",
+    "common_name": "Messier 46",
+    "catalogue_ids": [
+      "M46",
+      "NGC 2437"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 115.45,
+    "dec": -14.816667,
+    "magnitude": 6.1,
+    "angular_size": 27,
+    "beginner_prior": 58,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2442",
+    "primary_name": "NGC 2442",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 2442"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 114.1,
+    "dec": -69.533333,
+    "magnitude": 10.4,
+    "angular_size": 6,
+    "beginner_prior": 20,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2632",
+    "primary_name": "NGC 2632",
+    "common_name": "Beehive Cluster",
+    "catalogue_ids": [
+      "M44",
+      "NGC 2632",
+      "Praesepe"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 130.025,
+    "dec": 19.983333,
+    "magnitude": 3.1,
+    "angular_size": 95,
+    "beginner_prior": 90,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2682",
+    "primary_name": "NGC 2682",
+    "common_name": "King Cobra Cluster",
+    "catalogue_ids": [
+      "M67",
+      "NGC 2682"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 132.6,
+    "dec": 11.816667,
+    "magnitude": 6.9,
+    "angular_size": 30,
+    "beginner_prior": 58,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2403",
+    "primary_name": "NGC 2403",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 2403"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 114.225,
+    "dec": 65.6,
+    "magnitude": 8.4,
+    "angular_size": 22,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2903",
+    "primary_name": "NGC 2903",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 2903"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 143.05,
+    "dec": 21.5,
+    "magnitude": 9.0,
+    "angular_size": 13,
+    "beginner_prior": 55,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3031",
+    "primary_name": "NGC 3031",
+    "common_name": "Bode's Galaxy",
+    "catalogue_ids": [
+      "M81",
+      "NGC 3031"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 148.9,
+    "dec": 69.066667,
+    "magnitude": 6.9,
+    "angular_size": 27,
+    "beginner_prior": 90,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3034",
+    "primary_name": "NGC 3034",
+    "common_name": "Cigar Galaxy",
+    "catalogue_ids": [
+      "M82",
+      "NGC 3034"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 148.975,
+    "dec": 69.683333,
+    "magnitude": 8.4,
+    "angular_size": 11,
+    "beginner_prior": 88,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3115",
+    "primary_name": "NGC 3115",
+    "common_name": "Spindle Galaxy",
+    "catalogue_ids": [
+      "NGC 3115"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 151.3,
+    "dec": -7.716667,
+    "magnitude": 8.9,
+    "angular_size": 7,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3242",
+    "primary_name": "NGC 3242",
+    "common_name": "Ghost of Jupiter",
+    "catalogue_ids": [
+      "NGC 3242"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 156.2,
+    "dec": -18.633333,
+    "magnitude": 7.8,
+    "angular_size": 0.6,
+    "beginner_prior": 55,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3556",
+    "primary_name": "NGC 3556",
+    "common_name": "Messier 108",
+    "catalogue_ids": [
+      "M108",
+      "NGC 3556"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 167.875,
+    "dec": 55.666667,
+    "magnitude": 10.0,
+    "angular_size": 9,
+    "beginner_prior": 48,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3587",
+    "primary_name": "NGC 3587",
+    "common_name": "Owl Nebula",
+    "catalogue_ids": [
+      "M97",
+      "NGC 3587"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 168.7,
+    "dec": 55.016667,
+    "magnitude": 9.9,
+    "angular_size": 3.4,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3623",
+    "primary_name": "NGC 3623",
+    "common_name": "Leo Triplet (M65)",
+    "catalogue_ids": [
+      "M65",
+      "NGC 3623"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 169.725,
+    "dec": 13.083333,
+    "magnitude": 9.3,
+    "angular_size": 10,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3627",
+    "primary_name": "NGC 3627",
+    "common_name": "Leo Triplet (M66)",
+    "catalogue_ids": [
+      "M66",
+      "NGC 3627"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 170.05,
+    "dec": 12.983333,
+    "magnitude": 8.9,
+    "angular_size": 9,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3628",
+    "primary_name": "NGC 3628",
+    "common_name": "Leo Triplet (hamburger)",
+    "catalogue_ids": [
+      "NGC 3628"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 170.075,
+    "dec": 13.583333,
+    "magnitude": 9.5,
+    "angular_size": 15,
+    "beginner_prior": 68,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-3992",
+    "primary_name": "NGC 3992",
+    "common_name": "Messier 109",
+    "catalogue_ids": [
+      "M109",
+      "NGC 3992"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 179.4,
+    "dec": 53.366667,
+    "magnitude": 9.8,
+    "angular_size": 8,
+    "beginner_prior": 48,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4147",
+    "primary_name": "NGC 4147",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 4147"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 182.525,
+    "dec": 18.55,
+    "magnitude": 10.3,
+    "angular_size": 4,
+    "beginner_prior": 35,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4192",
+    "primary_name": "NGC 4192",
+    "common_name": "Messier 98",
+    "catalogue_ids": [
+      "M98",
+      "NGC 4192"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 183.45,
+    "dec": 14.9,
+    "magnitude": 10.1,
+    "angular_size": 10,
+    "beginner_prior": 42,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4254",
+    "primary_name": "NGC 4254",
+    "common_name": "Messier 99",
+    "catalogue_ids": [
+      "M99",
+      "NGC 4254"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 184.7,
+    "dec": 14.416667,
+    "magnitude": 9.9,
+    "angular_size": 5,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4258",
+    "primary_name": "NGC 4258",
+    "common_name": "Messier 106",
+    "catalogue_ids": [
+      "M106",
+      "NGC 4258"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 184.75,
+    "dec": 47.3,
+    "magnitude": 8.4,
+    "angular_size": 19,
+    "beginner_prior": 65,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4303",
+    "primary_name": "NGC 4303",
+    "common_name": "Messier 61",
+    "catalogue_ids": [
+      "M61",
+      "NGC 4303"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 185.475,
+    "dec": 4.466667,
+    "magnitude": 9.7,
+    "angular_size": 6,
+    "beginner_prior": 42,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4321",
+    "primary_name": "NGC 4321",
+    "common_name": "Messier 100",
+    "catalogue_ids": [
+      "M100",
+      "NGC 4321"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 185.725,
+    "dec": 15.816667,
+    "magnitude": 9.4,
+    "angular_size": 7,
+    "beginner_prior": 48,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4374",
+    "primary_name": "NGC 4374",
+    "common_name": "Messier 84",
+    "catalogue_ids": [
+      "M84",
+      "NGC 4374"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 186.275,
+    "dec": 12.883333,
+    "magnitude": 9.1,
+    "angular_size": 7,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4382",
+    "primary_name": "NGC 4382",
+    "common_name": "Messier 85",
+    "catalogue_ids": [
+      "M85",
+      "NGC 4382"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 186.35,
+    "dec": 18.183333,
+    "magnitude": 9.1,
+    "angular_size": 7,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4406",
+    "primary_name": "NGC 4406",
+    "common_name": "Messier 86",
+    "catalogue_ids": [
+      "M86",
+      "NGC 4406"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 186.55,
+    "dec": 12.95,
+    "magnitude": 8.9,
+    "angular_size": 9,
+    "beginner_prior": 42,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4472",
+    "primary_name": "NGC 4472",
+    "common_name": "Messier 49",
+    "catalogue_ids": [
+      "M49",
+      "NGC 4472"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 187.45,
+    "dec": 8.0,
+    "magnitude": 8.4,
+    "angular_size": 10,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4486",
+    "primary_name": "NGC 4486",
+    "common_name": "Virgo A",
+    "catalogue_ids": [
+      "M87",
+      "NGC 4486"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 187.7,
+    "dec": 12.383333,
+    "magnitude": 8.6,
+    "angular_size": 8,
+    "beginner_prior": 55,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4501",
+    "primary_name": "NGC 4501",
+    "common_name": "Messier 88",
+    "catalogue_ids": [
+      "M88",
+      "NGC 4501"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 188.0,
+    "dec": 14.416667,
+    "magnitude": 9.6,
+    "angular_size": 7,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4552",
+    "primary_name": "NGC 4552",
+    "common_name": "Messier 89",
+    "catalogue_ids": [
+      "M89",
+      "NGC 4552"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 188.925,
+    "dec": 12.55,
+    "magnitude": 9.8,
+    "angular_size": 5,
+    "beginner_prior": 35,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4569",
+    "primary_name": "NGC 4569",
+    "common_name": "Messier 90",
+    "catalogue_ids": [
+      "M90",
+      "NGC 4569"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 189.2,
+    "dec": 13.166667,
+    "magnitude": 9.5,
+    "angular_size": 10,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4579",
+    "primary_name": "NGC 4579",
+    "common_name": "Messier 58",
+    "catalogue_ids": [
+      "M58",
+      "NGC 4579"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 189.425,
+    "dec": 11.816667,
+    "magnitude": 9.7,
+    "angular_size": 6,
+    "beginner_prior": 38,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4594",
+    "primary_name": "NGC 4594",
+    "common_name": "Sombrero Galaxy",
+    "catalogue_ids": [
+      "M104",
+      "NGC 4594"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 190.0,
+    "dec": -11.616667,
+    "magnitude": 8.0,
+    "angular_size": 9,
+    "beginner_prior": 80,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4621",
+    "primary_name": "NGC 4621",
+    "common_name": "Messier 59",
+    "catalogue_ids": [
+      "M59",
+      "NGC 4621"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 190.5,
+    "dec": 11.65,
+    "magnitude": 9.6,
+    "angular_size": 5,
+    "beginner_prior": 35,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4649",
+    "primary_name": "NGC 4649",
+    "common_name": "Messier 60",
+    "catalogue_ids": [
+      "M60",
+      "NGC 4649"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 190.925,
+    "dec": 11.55,
+    "magnitude": 8.8,
+    "angular_size": 7,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4736",
+    "primary_name": "NGC 4736",
+    "common_name": "Messier 94",
+    "catalogue_ids": [
+      "M94",
+      "NGC 4736"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 192.725,
+    "dec": 41.116667,
+    "magnitude": 8.2,
+    "angular_size": 11,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4826",
+    "primary_name": "NGC 4826",
+    "common_name": "Black Eye Galaxy",
+    "catalogue_ids": [
+      "M64",
+      "NGC 4826"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 194.175,
+    "dec": 21.683333,
+    "magnitude": 8.5,
+    "angular_size": 10,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5024",
+    "primary_name": "NGC 5024",
+    "common_name": "Messier 53",
+    "catalogue_ids": [
+      "M53",
+      "NGC 5024"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 198.225,
+    "dec": 18.166667,
+    "magnitude": 7.6,
+    "angular_size": 13,
+    "beginner_prior": 60,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5055",
+    "primary_name": "NGC 5055",
+    "common_name": "Sunflower Galaxy",
+    "catalogue_ids": [
+      "M63",
+      "NGC 5055"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 198.95,
+    "dec": 42.033333,
+    "magnitude": 8.6,
+    "angular_size": 13,
+    "beginner_prior": 68,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5194",
+    "primary_name": "NGC 5194",
+    "common_name": "Whirlpool Galaxy",
+    "catalogue_ids": [
+      "M51",
+      "NGC 5194"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 202.475,
+    "dec": 47.2,
+    "magnitude": 8.4,
+    "angular_size": 11,
+    "beginner_prior": 92,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5236",
+    "primary_name": "NGC 5236",
+    "common_name": "Southern Pinwheel",
+    "catalogue_ids": [
+      "M83",
+      "NGC 5236"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 204.25,
+    "dec": -29.866667,
+    "magnitude": 7.6,
+    "angular_size": 13,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5272",
+    "primary_name": "NGC 5272",
+    "common_name": "Messier 3",
+    "catalogue_ids": [
+      "M3",
+      "NGC 5272"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 205.55,
+    "dec": 28.383333,
+    "magnitude": 6.2,
+    "angular_size": 18,
+    "beginner_prior": 82,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5457",
+    "primary_name": "NGC 5457",
+    "common_name": "Pinwheel Galaxy",
+    "catalogue_ids": [
+      "M101",
+      "NGC 5457"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 210.8,
+    "dec": 54.35,
+    "magnitude": 7.9,
+    "angular_size": 29,
+    "beginner_prior": 85,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5866",
+    "primary_name": "NGC 5866",
+    "common_name": "Spindle (M102)",
+    "catalogue_ids": [
+      "M102",
+      "NGC 5866"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 226.625,
+    "dec": 55.766667,
+    "magnitude": 9.9,
+    "angular_size": 7,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-5904",
+    "primary_name": "NGC 5904",
+    "common_name": "Messier 5",
+    "catalogue_ids": [
+      "M5",
+      "NGC 5904"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 229.65,
+    "dec": 2.083333,
+    "magnitude": 5.6,
+    "angular_size": 23,
+    "beginner_prior": 80,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6205",
+    "primary_name": "NGC 6205",
+    "common_name": "Hercules Globular Cluster",
+    "catalogue_ids": [
+      "M13",
+      "NGC 6205"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 250.425,
+    "dec": 36.466667,
+    "magnitude": 5.8,
+    "angular_size": 20,
+    "beginner_prior": 96,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6218",
+    "primary_name": "NGC 6218",
+    "common_name": "Messier 12",
+    "catalogue_ids": [
+      "M12",
+      "NGC 6218"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 251.8,
+    "dec": -1.95,
+    "magnitude": 6.7,
+    "angular_size": 16,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6254",
+    "primary_name": "NGC 6254",
+    "common_name": "Messier 10",
+    "catalogue_ids": [
+      "M10",
+      "NGC 6254"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 254.275,
+    "dec": -4.1,
+    "magnitude": 6.6,
+    "angular_size": 20,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6341",
+    "primary_name": "NGC 6341",
+    "common_name": "Messier 92",
+    "catalogue_ids": [
+      "M92",
+      "NGC 6341"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 259.275,
+    "dec": 43.133333,
+    "magnitude": 6.4,
+    "angular_size": 14,
+    "beginner_prior": 78,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6402",
+    "primary_name": "NGC 6402",
+    "common_name": "Messier 14",
+    "catalogue_ids": [
+      "M14",
+      "NGC 6402"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 264.4,
+    "dec": -3.25,
+    "magnitude": 7.6,
+    "angular_size": 11,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6405",
+    "primary_name": "NGC 6405",
+    "common_name": "Butterfly Cluster",
+    "catalogue_ids": [
+      "M6",
+      "NGC 6405"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 265.025,
+    "dec": -32.216667,
+    "magnitude": 4.2,
+    "angular_size": 25,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6475",
+    "primary_name": "NGC 6475",
+    "common_name": "Ptolemy's Cluster",
+    "catalogue_ids": [
+      "M7",
+      "NGC 6475"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 268.475,
+    "dec": -34.816667,
+    "magnitude": 3.3,
+    "angular_size": 80,
+    "beginner_prior": 48,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6494",
+    "primary_name": "NGC 6494",
+    "common_name": "Messier 23",
+    "catalogue_ids": [
+      "M23",
+      "NGC 6494"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 269.2,
+    "dec": -19.016667,
+    "magnitude": 5.5,
+    "angular_size": 27,
+    "beginner_prior": 52,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6514",
+    "primary_name": "NGC 6514",
+    "common_name": "Trifid Nebula",
+    "catalogue_ids": [
+      "M20",
+      "NGC 6514"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 270.65,
+    "dec": -23.033333,
+    "magnitude": 6.3,
+    "angular_size": 28,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6523",
+    "primary_name": "NGC 6523",
+    "common_name": "Lagoon Nebula",
+    "catalogue_ids": [
+      "M8",
+      "NGC 6523"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 270.95,
+    "dec": -24.383333,
+    "magnitude": 6.0,
+    "angular_size": 90,
+    "beginner_prior": 78,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6531",
+    "primary_name": "NGC 6531",
+    "common_name": "Messier 21",
+    "catalogue_ids": [
+      "M21",
+      "NGC 6531"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 271.15,
+    "dec": -22.5,
+    "magnitude": 5.9,
+    "angular_size": 13,
+    "beginner_prior": 48,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6543",
+    "primary_name": "NGC 6543",
+    "common_name": "Cat's Eye Nebula",
+    "catalogue_ids": [
+      "NGC 6543"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 269.65,
+    "dec": 66.633333,
+    "magnitude": 8.1,
+    "angular_size": 0.3,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6611",
+    "primary_name": "NGC 6611",
+    "common_name": "Eagle Nebula",
+    "catalogue_ids": [
+      "M16",
+      "NGC 6611"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 274.7,
+    "dec": -13.783333,
+    "magnitude": 6.0,
+    "angular_size": 35,
+    "beginner_prior": 82,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6618",
+    "primary_name": "NGC 6618",
+    "common_name": "Omega Nebula",
+    "catalogue_ids": [
+      "M17",
+      "NGC 6618",
+      "Swan Nebula"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 275.2,
+    "dec": -16.183333,
+    "magnitude": 6.0,
+    "angular_size": 46,
+    "beginner_prior": 85,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6656",
+    "primary_name": "NGC 6656",
+    "common_name": "Messier 22",
+    "catalogue_ids": [
+      "M22",
+      "NGC 6656"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 279.1,
+    "dec": -23.9,
+    "magnitude": 5.1,
+    "angular_size": 32,
+    "beginner_prior": 65,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6705",
+    "primary_name": "NGC 6705",
+    "common_name": "Wild Duck Cluster",
+    "catalogue_ids": [
+      "M11",
+      "NGC 6705"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 282.775,
+    "dec": -6.266667,
+    "magnitude": 5.8,
+    "angular_size": 14,
+    "beginner_prior": 80,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6720",
+    "primary_name": "NGC 6720",
+    "common_name": "Ring Nebula",
+    "catalogue_ids": [
+      "M57",
+      "NGC 6720"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 283.4,
+    "dec": 33.033333,
+    "magnitude": 8.8,
+    "angular_size": 1.4,
+    "beginner_prior": 90,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6779",
+    "primary_name": "NGC 6779",
+    "common_name": "Messier 56",
+    "catalogue_ids": [
+      "M56",
+      "NGC 6779"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 289.15,
+    "dec": 30.183333,
+    "magnitude": 8.3,
+    "angular_size": 9,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6809",
+    "primary_name": "NGC 6809",
+    "common_name": "Messier 55",
+    "catalogue_ids": [
+      "M55",
+      "NGC 6809"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 295.0,
+    "dec": -30.966667,
+    "magnitude": 6.3,
+    "angular_size": 19,
+    "beginner_prior": 42,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6826",
+    "primary_name": "NGC 6826",
+    "common_name": "Blinking Planetary",
+    "catalogue_ids": [
+      "NGC 6826"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 296.2,
+    "dec": 50.516667,
+    "magnitude": 8.8,
+    "angular_size": 0.4,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6838",
+    "primary_name": "NGC 6838",
+    "common_name": "Messier 71",
+    "catalogue_ids": [
+      "M71",
+      "NGC 6838"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 298.45,
+    "dec": 18.783333,
+    "magnitude": 8.2,
+    "angular_size": 7,
+    "beginner_prior": 52,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6853",
+    "primary_name": "NGC 6853",
+    "common_name": "Dumbbell Nebula",
+    "catalogue_ids": [
+      "M27",
+      "NGC 6853"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 299.9,
+    "dec": 22.716667,
+    "magnitude": 7.4,
+    "angular_size": 8,
+    "beginner_prior": 92,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6888",
+    "primary_name": "NGC 6888",
+    "common_name": "Crescent Nebula",
+    "catalogue_ids": [
+      "NGC 6888"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 303.025,
+    "dec": 38.35,
+    "magnitude": 7.4,
+    "angular_size": 18,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6960",
+    "primary_name": "NGC 6960",
+    "common_name": "Western Veil",
+    "catalogue_ids": [
+      "NGC 6960",
+      "Veil Nebula"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 311.425,
+    "dec": 30.716667,
+    "magnitude": 7.0,
+    "angular_size": 70,
+    "beginner_prior": 85,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6992",
+    "primary_name": "NGC 6992",
+    "common_name": "Eastern Veil",
+    "catalogue_ids": [
+      "NGC 6992"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 314.1,
+    "dec": 31.716667,
+    "magnitude": 7.0,
+    "angular_size": 60,
+    "beginner_prior": 85,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7000",
+    "primary_name": "NGC 7000",
+    "common_name": "North America Nebula",
+    "catalogue_ids": [
+      "NGC 7000"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 314.825,
+    "dec": 44.533333,
+    "magnitude": 4.0,
+    "angular_size": 120,
+    "beginner_prior": 88,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7009",
+    "primary_name": "NGC 7009",
+    "common_name": "Saturn Nebula",
+    "catalogue_ids": [
+      "NGC 7009"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 316.05,
+    "dec": -11.366667,
+    "magnitude": 8.0,
+    "angular_size": 0.4,
+    "beginner_prior": 58,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7078",
+    "primary_name": "NGC 7078",
+    "common_name": "Great Pegasus Cluster",
+    "catalogue_ids": [
+      "M15",
+      "NGC 7078"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 322.5,
+    "dec": 12.166667,
+    "magnitude": 6.2,
+    "angular_size": 18,
+    "beginner_prior": 78,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7089",
+    "primary_name": "NGC 7089",
+    "common_name": "Messier 2",
+    "catalogue_ids": [
+      "M2",
+      "NGC 7089"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 323.375,
+    "dec": 0.816667,
+    "magnitude": 6.5,
+    "angular_size": 16,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7092",
+    "primary_name": "NGC 7092",
+    "common_name": "Messier 39",
+    "catalogue_ids": [
+      "M39",
+      "NGC 7092"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 323.05,
+    "dec": 48.433333,
+    "magnitude": 4.6,
+    "angular_size": 32,
+    "beginner_prior": 65,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7099",
+    "primary_name": "NGC 7099",
+    "common_name": "Messier 30",
+    "catalogue_ids": [
+      "M30",
+      "NGC 7099"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 325.1,
+    "dec": -23.183333,
+    "magnitude": 7.2,
+    "angular_size": 12,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7243",
+    "primary_name": "NGC 7243",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 7243"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 333.825,
+    "dec": 49.883333,
+    "magnitude": 6.4,
+    "angular_size": 21,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7293",
+    "primary_name": "NGC 7293",
+    "common_name": "Helix Nebula",
+    "catalogue_ids": [
+      "NGC 7293"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 337.4,
+    "dec": -20.833333,
+    "magnitude": 7.6,
+    "angular_size": 16,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7331",
+    "primary_name": "NGC 7331",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 7331"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 339.275,
+    "dec": 34.416667,
+    "magnitude": 9.5,
+    "angular_size": 11,
+    "beginner_prior": 68,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7654",
+    "primary_name": "NGC 7654",
+    "common_name": "Messier 52",
+    "catalogue_ids": [
+      "M52",
+      "NGC 7654"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 351.05,
+    "dec": 61.583333,
+    "magnitude": 6.9,
+    "angular_size": 13,
+    "beginner_prior": 62,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7662",
+    "primary_name": "NGC 7662",
+    "common_name": "Blue Snowball",
+    "catalogue_ids": [
+      "NGC 7662"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 351.475,
+    "dec": 42.533333,
+    "magnitude": 8.3,
+    "angular_size": 0.3,
+    "beginner_prior": 65,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7789",
+    "primary_name": "NGC 7789",
+    "common_name": "Caroline's Rose",
+    "catalogue_ids": [
+      "NGC 7789"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 359.25,
+    "dec": 56.733333,
+    "magnitude": 6.7,
+    "angular_size": 16,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1952",
+    "primary_name": "NGC 1952",
+    "common_name": "Crab Nebula",
+    "catalogue_ids": [
+      "M1",
+      "NGC 1952"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 83.625,
+    "dec": 22.016667,
+    "magnitude": 8.4,
+    "angular_size": 6,
+    "beginner_prior": 80,
+    "metadata": {}
+  },
+  {
+    "id": "ic-1396",
+    "primary_name": "IC 1396",
+    "common_name": "Elephant's Trunk region",
+    "catalogue_ids": [
+      "IC 1396"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 324.775,
+    "dec": 57.5,
+    "magnitude": 3.5,
+    "angular_size": 170,
+    "beginner_prior": 60,
+    "metadata": {}
+  },
+  {
+    "id": "ic-1805",
+    "primary_name": "IC 1805",
+    "common_name": "Heart Nebula",
+    "catalogue_ids": [
+      "IC 1805"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 38.175,
+    "dec": 61.45,
+    "magnitude": 6.5,
+    "angular_size": 60,
+    "beginner_prior": 68,
+    "metadata": {}
+  },
+  {
+    "id": "ic-1848",
+    "primary_name": "IC 1848",
+    "common_name": "Soul Nebula",
+    "catalogue_ids": [
+      "IC 1848"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 42.825,
+    "dec": 60.4,
+    "magnitude": 6.5,
+    "angular_size": 40,
+    "beginner_prior": 65,
+    "metadata": {}
+  },
+  {
+    "id": "ic-405",
+    "primary_name": "IC 405",
+    "common_name": "Flaming Star Nebula",
+    "catalogue_ids": [
+      "IC 405"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 79.05,
+    "dec": 34.266667,
+    "magnitude": 6.0,
+    "angular_size": 30,
+    "beginner_prior": 58,
+    "metadata": {}
+  },
+  {
+    "id": "ic-434",
+    "primary_name": "IC 434",
+    "common_name": "Horsehead region",
+    "catalogue_ids": [
+      "IC 434",
+      "B33"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 85.25,
+    "dec": -2.45,
+    "magnitude": 11.0,
+    "angular_size": 60,
+    "beginner_prior": 75,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-891",
+    "primary_name": "NGC 891",
+    "common_name": "Silver Sliver Galaxy",
+    "catalogue_ids": [
+      "NGC 891"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 35.65,
+    "dec": 42.35,
+    "magnitude": 9.9,
+    "angular_size": 14,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-253",
+    "primary_name": "NGC 253",
+    "common_name": "Sculptor Galaxy",
+    "catalogue_ids": [
+      "NGC 253"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 11.9,
+    "dec": -25.283333,
+    "magnitude": 7.2,
+    "angular_size": 29,
+    "beginner_prior": 48,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-457",
+    "primary_name": "NGC 457",
+    "common_name": "Owl Cluster",
+    "catalogue_ids": [
+      "NGC 457",
+      "E.T. Cluster"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 19.9,
+    "dec": 58.283333,
+    "magnitude": 6.4,
+    "angular_size": 13,
+    "beginner_prior": 75,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-663",
+    "primary_name": "NGC 663",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 663"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 26.575,
+    "dec": 61.216667,
+    "magnitude": 7.1,
+    "angular_size": 16,
+    "beginner_prior": 55,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-752",
+    "primary_name": "NGC 752",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 752"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 29.45,
+    "dec": 37.783333,
+    "magnitude": 5.7,
+    "angular_size": 50,
+    "beginner_prior": 58,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1023",
+    "primary_name": "NGC 1023",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 1023"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 40.1,
+    "dec": 39.066667,
+    "magnitude": 9.4,
+    "angular_size": 9,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1501",
+    "primary_name": "NGC 1501",
+    "common_name": "Oyster Nebula",
+    "catalogue_ids": [
+      "NGC 1501"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 61.75,
+    "dec": 60.916667,
+    "magnitude": 11.5,
+    "angular_size": 0.9,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-1502",
+    "primary_name": "NGC 1502",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 1502"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 61.95,
+    "dec": 62.333333,
+    "magnitude": 5.7,
+    "angular_size": 8,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2169",
+    "primary_name": "NGC 2169",
+    "common_name": "37 Cluster",
+    "catalogue_ids": [
+      "NGC 2169"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 92.1,
+    "dec": 13.95,
+    "magnitude": 5.9,
+    "angular_size": 7,
+    "beginner_prior": 52,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-2419",
+    "primary_name": "NGC 2419",
+    "common_name": "Intergalactic Wanderer",
+    "catalogue_ids": [
+      "NGC 2419"
+    ],
+    "object_type": "globular_cluster",
+    "friendly_type": "Globular cluster",
+    "ra": 114.525,
+    "dec": 58.883333,
+    "magnitude": 10.4,
+    "angular_size": 4,
+    "beginner_prior": 45,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4631",
+    "primary_name": "NGC 4631",
+    "common_name": "Whale Galaxy",
+    "catalogue_ids": [
+      "NGC 4631"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 190.525,
+    "dec": 32.533333,
+    "magnitude": 9.2,
+    "angular_size": 15,
+    "beginner_prior": 58,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-4565",
+    "primary_name": "NGC 4565",
+    "common_name": "Needle Galaxy",
+    "catalogue_ids": [
+      "NGC 4565"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 189.075,
+    "dec": 25.983333,
+    "magnitude": 9.6,
+    "angular_size": 16,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6946",
+    "primary_name": "NGC 6946",
+    "common_name": "Fireworks Galaxy",
+    "catalogue_ids": [
+      "NGC 6946"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 308.725,
+    "dec": 60.15,
+    "magnitude": 8.8,
+    "angular_size": 11,
+    "beginner_prior": 70,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7023",
+    "primary_name": "NGC 7023",
+    "common_name": "Iris Nebula",
+    "catalogue_ids": [
+      "NGC 7023"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 315.4,
+    "dec": 68.166667,
+    "magnitude": 6.8,
+    "angular_size": 18,
+    "beginner_prior": 72,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7027",
+    "primary_name": "NGC 7027",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 7027"
+    ],
+    "object_type": "planetary_nebula",
+    "friendly_type": "Planetary nebula",
+    "ra": 316.775,
+    "dec": 42.233333,
+    "magnitude": 8.5,
+    "angular_size": 0.3,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-7635",
+    "primary_name": "NGC 7635",
+    "common_name": "Bubble Nebula",
+    "catalogue_ids": [
+      "NGC 7635"
+    ],
+    "object_type": "nebula",
+    "friendly_type": "Nebula",
+    "ra": 350.175,
+    "dec": 61.2,
+    "magnitude": 10.0,
+    "angular_size": 15,
+    "beginner_prior": 68,
+    "metadata": {}
+  },
+  {
+    "id": "ic-342",
+    "primary_name": "IC 342",
+    "common_name": "Hidden Galaxy",
+    "catalogue_ids": [
+      "IC 342"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 56.7,
+    "dec": 68.1,
+    "magnitude": 9.1,
+    "angular_size": 21,
+    "beginner_prior": 50,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-147",
+    "primary_name": "NGC 147",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 147"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 8.3,
+    "dec": 48.5,
+    "magnitude": 9.5,
+    "angular_size": 13,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-185",
+    "primary_name": "NGC 185",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 185"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 9.75,
+    "dec": 48.333333,
+    "magnitude": 9.2,
+    "angular_size": 12,
+    "beginner_prior": 40,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-404",
+    "primary_name": "NGC 404",
+    "common_name": "Mirach's Ghost",
+    "catalogue_ids": [
+      "NGC 404"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 17.35,
+    "dec": 35.716667,
+    "magnitude": 10.3,
+    "angular_size": 4,
+    "beginner_prior": 42,
+    "metadata": {}
+  },
+  {
+    "id": "collinder-399",
+    "primary_name": "Collinder 399",
+    "common_name": "Coathanger",
+    "catalogue_ids": [
+      "Cr 399",
+      "Brocchi's Cluster"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 291.35,
+    "dec": 20.183333,
+    "magnitude": 3.6,
+    "angular_size": 60,
+    "beginner_prior": 80,
+    "metadata": {}
+  },
+  {
+    "id": "melotte-111",
+    "primary_name": "Melotte 111",
+    "common_name": "Coma Star Cluster",
+    "catalogue_ids": [
+      "Melotte 111"
+    ],
+    "object_type": "open_cluster",
+    "friendly_type": "Open cluster",
+    "ra": 186.25,
+    "dec": 26.1,
+    "magnitude": 1.8,
+    "angular_size": 275,
+    "beginner_prior": 75,
+    "metadata": {}
+  },
+  {
+    "id": "ngc-6543b",
+    "primary_name": "NGC 6543B",
+    "common_name": null,
+    "catalogue_ids": [
+      "NGC 6552"
+    ],
+    "object_type": "galaxy",
+    "friendly_type": "Galaxy",
+    "ra": 270.0,
+    "dec": 66.616667,
+    "magnitude": 13.0,
+    "angular_size": 1,
+    "beginner_prior": 15,
+    "metadata": {}
+  }
+]

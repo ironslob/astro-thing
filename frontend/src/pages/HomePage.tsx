@@ -1,0 +1,137 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../api/client";
+import type { PlaceMatch } from "../api/types";
+import { HOVE } from "../lib/demo";
+
+export function HomePage() {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState("");
+  const [geoState, setGeoState] = useState<"idle" | "asking" | "denied">("idle");
+  const delayed = query.trim().length >= 2 ? query.trim() : "";
+  const search = useQuery({
+    queryKey: ["places", delayed],
+    queryFn: () => api.searchPlaces(delayed),
+    enabled: delayed.length >= 2,
+  });
+
+  const go = (place: { name: string; lat: number; lon: number }) => {
+    const params = new URLSearchParams({
+      lat: String(place.lat),
+      lon: String(place.lon),
+      name: place.name,
+    });
+    navigate(`/windows?${params.toString()}`);
+  };
+
+  const useLocation = () => {
+    if (!navigator.geolocation) {
+      setGeoState("denied");
+      return;
+    }
+    setGeoState("asking");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        go({
+          name: "Your location",
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        });
+      },
+      () => setGeoState("denied"),
+      { enableHighAccuracy: false, timeout: 8000 },
+    );
+  };
+
+  return (
+    <main className="mx-auto flex max-w-xl flex-col gap-8 px-4 pb-16 pt-6">
+      <div>
+        <p className="text-sm uppercase tracking-[0.2em] text-amber">UK field guide</p>
+        <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
+          Find your next clear night.
+        </h1>
+        <p className="mt-3 text-lg text-cream-dim">
+          We'll check the sky and tell you when to go out.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={useLocation}
+        className="rounded-2xl bg-amber px-6 py-4 text-left text-lg font-semibold text-night-deep shadow-card transition hover:bg-amber-deep"
+      >
+        {geoState === "asking" ? "Finding you…" : "Use my location"}
+      </button>
+
+      {geoState === "denied" && (
+        <p className="rounded-xl bg-night-card px-4 py-3 text-sm" role="status">
+          Location is blocked in this browser. Search for a town or postcode instead — Hove works
+          nicely.
+        </p>
+      )}
+
+      <LocationSearch
+        query={query}
+        onQuery={setQuery}
+        results={search.data?.results ?? []}
+        loading={search.isFetching}
+        onPick={(p) => go({ name: p.display_name, lat: p.latitude, lon: p.longitude })}
+      />
+
+      <button
+        type="button"
+        className="text-left text-sm text-cream-dim underline decoration-amber/50 underline-offset-4 hover:text-cream"
+        onClick={() => go({ name: HOVE.name, lat: HOVE.lat, lon: HOVE.lon })}
+      >
+        Try Brighton & Hove
+      </button>
+    </main>
+  );
+}
+
+export function LocationSearch({
+  query,
+  onQuery,
+  results,
+  loading,
+  onPick,
+}: {
+  query: string;
+  onQuery: (v: string) => void;
+  results: PlaceMatch[];
+  loading: boolean;
+  onPick: (place: PlaceMatch) => void;
+}) {
+  return (
+    <div>
+      <label htmlFor="place" className="text-sm text-cream-dim">
+        Or search a UK place or postcode
+      </label>
+      <input
+        id="place"
+        value={query}
+        onChange={(e) => onQuery(e.target.value)}
+        placeholder="Hove, Manchester, BN3…"
+        className="mt-2 w-full rounded-2xl border border-white/10 bg-night-raised px-4 py-3 text-base outline-none ring-amber focus:ring-2"
+        autoComplete="off"
+      />
+      {loading && <p className="mt-2 text-sm text-cream-dim">Looking up places…</p>}
+      {results.length > 0 && (
+        <ul className="mt-2 overflow-hidden rounded-2xl bg-night-card">
+          {results.map((r) => (
+            <li key={`${r.display_name}-${r.latitude}`}>
+              <button
+                type="button"
+                className="w-full px-4 py-3 text-left hover:bg-white/5"
+                onClick={() => onPick(r)}
+              >
+                {r.display_name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}

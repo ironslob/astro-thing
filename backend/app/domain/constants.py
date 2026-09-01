@@ -1,0 +1,42 @@
+SCORING_VERSION = "1.0.0"
+
+# User-facing rating thresholds (internal 0–100 score).
+EXCELLENT_MIN = 80
+GOOD_MIN = 65
+FAIR_MIN = 45
+
+# Window engine
+SLICE_MINUTES = 30
+MIN_WINDOW_MINUTES = 60
+MAX_WINDOWS_PER_NIGHT = 2
+ASTRONOMICAL_TWILIGHT_ALT = -18.0
+NAUTICAL_TWILIGHT_ALT = -12.0
+CIVIL_TWILIGHT_ALT = -6.0
+
+# Target ranking
+MIN_USEFUL_ALTITUDE = 20.0
+PREFERRED_ALTITUDE = 30.0
+
+# Score weights — windows
+W_CLOUD = 0.55
+W_PRECIP = 0.15
+W_VIS_HUMIDITY = 0.10
+W_WIND = 0.10
+W_DARKNESS = 0.10
+
+# Score weights — targets
+T_GEOMETRY = 0.45
+T_PLACED = 0.20
+T_MOON = 0.20
+T_PRIOR = 0.15
+
+UK_LAT_MIN = 49.8
+UK_LAT_MAX = 60.9
+UK_LON_MIN = -8.7
+UK_LON_MAX = 1.8
+
+MAJOR_PLANETS = ("mercury", "venus", "mars", "jupiter", "saturn")
+
+DEFAULT_TIMEZONE = "Europe/London"
+
+GEOHASH_PRECISION = 5  # ~4.9 km cells
