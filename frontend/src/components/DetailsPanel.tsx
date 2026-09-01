@@ -14,8 +14,8 @@ export function DetailsPanel({ details }: { details: TargetDetails }) {
   const weather = details.weather ?? {};
   return (
     <dl className="mt-3 rounded-2xl bg-night-deep/60 px-4 py-2">
-      {row("Altitude", `${details.altitude_deg}°`)}
-      {row("Azimuth", `${details.azimuth_deg}°`)}
+      {row("Altitude", details.altitude_deg != null ? `${details.altitude_deg}°` : null)}
+      {row("Azimuth", details.azimuth_deg != null ? `${details.azimuth_deg}°` : null)}
       {row("RA", details.ra != null ? `${details.ra.toFixed(3)}°` : null)}
       {row("Dec", details.dec != null ? `${details.dec.toFixed(3)}°` : null)}
       {row("Catalogue", details.catalogue_ids?.join(", "))}

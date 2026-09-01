@@ -20,5 +20,6 @@ class DeepSkyObject(Base):
     dec: Mapped[float] = mapped_column(Float)
     magnitude: Mapped[float | None] = mapped_column(Float, nullable=True)
     angular_size: Mapped[float | None] = mapped_column(Float, nullable=True)
-    beginner_prior: Mapped[int] = mapped_column(Integer, default=50)
+    beginner_prior: Mapped[int] = mapped_column(Integer, default=50, index=True)
+    search_text: Mapped[str] = mapped_column(String(1024), default="", index=True)
     extra: Mapped[dict] = mapped_column("metadata", JSON_DOC, default=dict)

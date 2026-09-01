@@ -9,14 +9,53 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.api.deps import get_db, get_weather_cache
+from app.api.deps import get_db, get_geocoding_service, get_weather_cache
 from app.core.db import Base
 from app.core.redis import set_redis
+from app.geocoding.service import GeocodingService
+from app.importers.search_text import build_search_text
 from app.main import create_app
 from app.models.catalogue import DeepSkyObject
-from app.models.place import UkPlace
 from app.weather.cache import WeatherCacheService
-from tests.fakes import FakeWeatherProvider, forecast_from_builder, hour
+from tests.fakes import (
+    FakePlacesProvider,
+    FakePostcodesProvider,
+    FakeWeatherProvider,
+    forecast_from_builder,
+    hour,
+)
+
+
+def _dso(
+    ident: str,
+    primary: str,
+    *,
+    common: str | None = None,
+    ids: list[str] | None = None,
+    otype: str = "galaxy",
+    friendly: str = "Galaxy",
+    ra: float = 10.6847,
+    dec: float = 41.269,
+    mag: float = 3.4,
+    size: float = 190,
+    prior: int = 100,
+) -> DeepSkyObject:
+    ids = ids or [primary]
+    return DeepSkyObject(
+        id=ident,
+        primary_name=primary,
+        common_name=common,
+        catalogue_ids=ids,
+        object_type=otype,
+        friendly_type=friendly,
+        ra=ra,
+        dec=dec,
+        magnitude=mag,
+        angular_size=size,
+        beginner_prior=prior,
+        search_text=build_search_text(primary, common, ids),
+        extra={},
+    )
 
 
 @pytest.fixture
@@ -38,49 +77,44 @@ def client(fake_forecast):
     Session = sessionmaker(bind=engine)
     db = Session()
     db.add(
-        UkPlace(
-            name="Hove",
-            display_name="Hove, England",
-            region="England",
-            latitude=50.8279,
-            longitude=-0.1688,
-            place_type="town",
-            population=91000,
-            search_name="hove",
+        _dso(
+            "ngc-224",
+            "NGC 224",
+            common="Andromeda Galaxy",
+            ids=["M31", "NGC 224"],
         )
     )
     db.add(
-        UkPlace(
-            name="BN3",
-            display_name="BN3, Hove",
-            region="England",
-            latitude=50.83,
-            longitude=-0.17,
-            place_type="outcode",
-            population=0,
-            search_name="bn3",
+        _dso(
+            "mel-22",
+            "Mel 22",
+            common="Pleiades",
+            ids=["M45", "Pleiades"],
+            otype="open_cluster",
+            friendly="Open cluster",
+            ra=56.871,
+            dec=24.105,
+            mag=1.2,
+            size=150,
+            prior=100,
         )
     )
     db.add(
-        DeepSkyObject(
-            id="ngc-224",
-            primary_name="NGC 224",
-            common_name="Andromeda Galaxy",
-            catalogue_ids=["M31", "NGC 224"],
-            object_type="galaxy",
-            friendly_type="Galaxy",
-            ra=10.6847,
-            dec=41.269,
-            magnitude=3.4,
-            angular_size=190,
-            beginner_prior=100,
-            extra={},
+        _dso(
+            "ngc-9999",
+            "NGC 9999",
+            ids=["NGC 9999"],
+            mag=14.0,
+            size=1,
+            prior=20,
         )
     )
     db.commit()
     db.close()
 
     provider = FakeWeatherProvider(forecast=fake_forecast)
+    places = FakePlacesProvider()
+    postcodes = FakePostcodesProvider()
     redis = fakeredis.FakeRedis(decode_responses=True)
     set_redis(redis)
 
@@ -98,11 +132,21 @@ def client(fake_forecast):
         finally:
             session.close()
 
+    def override_geo():
+        return GeocodingService(places, postcodes, redis_client=redis)
+
     application = create_app()
     application.dependency_overrides[get_db] = override_db
     application.dependency_overrides[get_weather_cache] = override_cache
+    application.dependency_overrides[get_geocoding_service] = override_geo
     with TestClient(application) as c:
-        c.extra = {"provider": provider, "redis": redis, "Session": Session}
+        c.extra = {
+            "provider": provider,
+            "places": places,
+            "postcodes": postcodes,
+            "redis": redis,
+            "Session": Session,
+        }
         yield c
     set_redis(None)
 
@@ -118,12 +162,41 @@ def test_location_search(client: TestClient) -> None:
     assert r.status_code == 200
     names = [x["display_name"] for x in r.json()["results"]]
     assert any("Hove" in n for n in names)
+    assert client.extra["places"].calls
+    assert client.extra["postcodes"].calls == []
 
 
 def test_outcode_search(client: TestClient) -> None:
     r = client.get("/api/v1/locations/search", params={"q": "BN3 2AB"})
     assert r.status_code == 200
     assert r.json()["results"]
+    assert client.extra["postcodes"].calls
+    assert client.extra["places"].calls == []
+
+
+def test_four_letter_town_is_not_an_outcode(client: TestClient) -> None:
+    r = client.get("/api/v1/locations/search", params={"q": "Bath"})
+    assert r.status_code == 200
+    assert any("Bath" in x["display_name"] for x in r.json()["results"])
+    assert client.extra["places"].calls
+    assert client.extra["postcodes"].calls == []
+
+
+def test_location_search_provider_error(client: TestClient) -> None:
+    client.extra["places"].fail = True
+    r = client.get("/api/v1/locations/search", params={"q": "Hove"})
+    assert r.status_code == 503
+
+
+def test_catalogue_search(client: TestClient) -> None:
+    r = client.get("/api/v1/catalogue/search", params={"q": "Andromeda"})
+    assert r.status_code == 200
+    ids = [x["id"] for x in r.json()["results"]]
+    assert "ngc-224" in ids
+    r = client.get("/api/v1/catalogue/search", params={"q": "Pleiades"})
+    assert any(x["id"] == "mel-22" for x in r.json()["results"])
+    r = client.get("/api/v1/catalogue/search", params={"q": "Venus"})
+    assert any(x["id"] == "venus" for x in r.json()["results"])
 
 
 def test_windows_anonymous_and_single_provider_call(client: TestClient) -> None:
@@ -136,6 +209,65 @@ def test_windows_anonymous_and_single_provider_call(client: TestClient) -> None:
     r2 = client.get("/api/v1/forecast/windows", params={"lat": 50.8279, "lon": -0.1688})
     assert r2.status_code == 200
     assert client.extra["provider"].calls == 1
+
+
+def test_targets_rank_beginner_objects_and_pin(client: TestClient) -> None:
+    windows = client.get("/api/v1/forecast/windows", params={"lat": 50.8279, "lon": -0.1688})
+    assert windows.status_code == 200
+    window = windows.json()["windows"][0]
+    r = client.get(
+        "/api/v1/forecast/targets",
+        params={
+            "lat": 50.8279,
+            "lon": -0.1688,
+            "start": window["start"],
+            "end": window["end"],
+        },
+    )
+    assert r.status_code == 200, r.text
+    ids = [t["id"] for t in r.json()["targets"]]
+    assert "ngc-9999" not in ids
+    assert "ngc-224" in ids or "mel-22" in ids
+
+    pinned = client.get(
+        "/api/v1/forecast/targets",
+        params={
+            "lat": 50.8279,
+            "lon": -0.1688,
+            "start": window["start"],
+            "end": window["end"],
+            "object": "ngc-9999",
+        },
+    )
+    assert pinned.status_code == 200
+    names = [t["id"] for t in pinned.json()["targets"]]
+    assert names[0] == "ngc-9999"
+    assert names.count("ngc-9999") == 1
+
+    planet = client.get(
+        "/api/v1/forecast/targets",
+        params={
+            "lat": 50.8279,
+            "lon": -0.1688,
+            "start": window["start"],
+            "end": window["end"],
+            "object": "venus",
+        },
+    )
+    assert planet.status_code == 200
+    assert planet.json()["targets"][0]["id"] == "venus"
+
+    missing = client.get(
+        "/api/v1/forecast/targets",
+        params={
+            "lat": 50.8279,
+            "lon": -0.1688,
+            "start": window["start"],
+            "end": window["end"],
+            "object": "not-a-real-object",
+        },
+    )
+    assert missing.status_code == 404
 
 
 def test_rejects_non_uk(client: TestClient) -> None:

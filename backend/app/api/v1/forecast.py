@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
 from app.api.deps import DbDep, get_weather_cache, validate_uk_coords
 from app.api.rate_limit import enforce_forecast_rate_limit
-from app.services.forecast import ForecastService, ForecastUnavailable
+from app.services.forecast import ForecastService, ForecastUnavailable, UnknownTarget
 from app.weather.cache import WeatherCacheService
 from app.weather.provider import WeatherProviderError
 
@@ -41,6 +41,7 @@ def targets(
     lon: float = Query(),
     start: datetime = Query(),
     end: datetime = Query(),
+    object_id: str | None = Query(None, alias="object", max_length=64),
     cache: WeatherCacheService = Depends(get_weather_cache),
 ) -> dict:
     enforce_forecast_rate_limit(request)
@@ -49,7 +50,11 @@ def targets(
         raise HTTPException(status_code=400, detail="The window end needs to be after the start.")
     service = ForecastService(db, cache)
     try:
-        return service.targets(lat, lon, start, end)
+        return service.targets(lat, lon, start, end, object_id=object_id)
+    except UnknownTarget as exc:
+        raise HTTPException(
+            status_code=404, detail="We don't have that object in the catalogue."
+        ) from exc
     except WeatherProviderError as exc:
         raise HTTPException(
             status_code=503,

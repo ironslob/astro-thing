@@ -7,6 +7,13 @@ export type PlaceMatch = {
   place_type: string;
 };
 
+export type CatalogueMatch = {
+  id: string;
+  display_name: string;
+  friendly_type: string;
+  catalogue_ids: string[];
+};
+
 export type WindowCard = {
   start: string;
   end: string;
@@ -30,8 +37,8 @@ export type WindowsResponse = {
 };
 
 export type TargetDetails = {
-  altitude_deg: number;
-  azimuth_deg: number;
+  altitude_deg: number | null;
+  azimuth_deg: number | null;
   ra: number | null;
   dec: number | null;
   catalogue_ids: string[];
@@ -44,6 +51,7 @@ export type TargetDetails = {
 };
 
 export type TargetCard = {
+  id: string;
   name: string;
   object_type: string;
   rating: Rating;

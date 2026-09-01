@@ -22,7 +22,9 @@ Compose images: PostgreSQL 18, Redis 8, nginx 1.30, Mailpit, Python 3.14, Node 2
 - Or search `Hove`, `Brighton`, or a postcode such as `BN3 2AB`.
 - Magic-link emails appear in Mailpit: [http://localhost:8025](http://localhost:8025).
 
-The first backend start runs migrations and imports the bundled catalogue + UK places.
+The first backend start runs migrations and imports the OpenNGC catalogue plus bright named stars.
+
+Location search uses live Open-Meteo Geocoding (place names) and postcodes.io (UK postcodes), cached in Redis. This is a documented exception to the spec preference for a bundled UK place dataset. Browser geolocation still does not call a geocoder.
 
 ### Without Docker
 
@@ -55,7 +57,7 @@ celery -A app.celery_app.celery_app beat -l info
 
 ## Tests
 
-No live weather or catalogue APIs. Fixtures and fakes only.
+No live weather, geocoding, or catalogue APIs. Fixtures and fakes only.
 
 ```bash
 cd backend && pytest -q
@@ -82,8 +84,9 @@ Public API (also at `/docs` outside production):
 | --- | --- | --- |
 | GET | `/health` | no |
 | GET | `/api/v1/locations/search?q=` | no |
+| GET | `/api/v1/catalogue/search?q=` | no |
 | GET | `/api/v1/forecast/windows?lat=&lon=` | no |
-| GET | `/api/v1/forecast/targets?lat=&lon=&start=&end=` | no |
+| GET | `/api/v1/forecast/targets?lat=&lon=&start=&end=&object=` | no |
 | POST | `/api/v1/auth/magic-link` | no |
 | GET | `/api/v1/auth/verify` | no |
 | GET | `/api/v1/me` | cookie |
@@ -98,15 +101,15 @@ See [`.env.example`](.env.example). Important keys:
 - `SMTP_HOST` / `SMTP_PORT` / `SMTP_FROM`
 - `FRONTEND_BASE_URL` — used in magic-link emails
 - `OPEN_METEO_BASE_URL`
+- `OPEN_METEO_GEOCODING_BASE_URL`, `POSTCODES_IO_BASE_URL`
 - `VITE_API_BASE_URL` — baked into the frontend image (`/api/v1` behind the gateway)
 
 ## Catalogue import
 
-Default seed: `data/catalogue/beginner_dsos.json` (Andromeda, Orion Nebula, Pleiades, Double Cluster, and other northern beginner objects).
+Default seed: OpenNGC `data/catalogue/NGC.csv` + `addendum.csv`, plus `data/catalogue/bright_stars.json`. Auto-rank uses objects with a beginner prior of 55 or higher (Andromeda, Orion Nebula, Pleiades, and other northern beginner targets still lead).
 
 ```bash
 python -m app.importers.seed
-python -m app.importers.openngc   # optional, if you add OpenNGC NGC.csv
 ```
 
 ## Deployment
@@ -117,4 +120,4 @@ python -m app.importers.openngc   # optional, if you add OpenNGC NGC.csv
 
 ## Data licences
 
-See [data/licences/ATTRIBUTION.md](data/licences/ATTRIBUTION.md). Footer credit is required for Open-Meteo, GeoNames, and OpenNGC.
+See [data/licences/ATTRIBUTION.md](data/licences/ATTRIBUTION.md). Footer credit is required for Open-Meteo (weather and geocoding / GeoNames), postcodes.io, and OpenNGC.

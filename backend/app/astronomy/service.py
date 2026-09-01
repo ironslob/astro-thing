@@ -157,73 +157,82 @@ class AstronomyService:
         self, lat: float, lon: float, start: datetime, end: datetime
     ) -> list[TargetCandidate]:
         out: list[TargetCandidate] = []
-        span_start = start - timedelta(hours=6)
-        span_end = end + timedelta(hours=6)
-        moon = self.moon_state(lat, lon, start + (end - start) / 2)
-        mid = start + (end - start) / 2
         for name in MAJOR_PLANETS:
-            samples = self.sample_body(lat, lon, name, start, end)
-            day = self.sample_body(lat, lon, name, span_start, span_end, step_minutes=30)
-            rise, set_, transit = self.rise_set_transit(day)
-            peak = max(samples, key=lambda s: s.altitude)
-            if peak.altitude < 0:
-                continue
-            # Moon separation via altaz angular distance at mid-window
-            mid_sample = min(samples, key=lambda s: abs((s.time - mid).total_seconds()))
-            sep = _altaz_separation(
-                mid_sample.altitude, mid_sample.azimuth, moon.altitude, moon.azimuth
-            )
-            out.append(
-                TargetCandidate(
-                    key=name,
-                    name=PLANET_LABELS[name],
-                    object_type="planet",
-                    friendly_type="Planet",
-                    catalogue_ids=[PLANET_LABELS[name]],
-                    ra=None,
-                    dec=None,
-                    magnitude={
-                        "mercury": 0.0,
-                        "venus": -4.0,
-                        "mars": 0.5,
-                        "jupiter": -2.2,
-                        "saturn": 0.7,
-                    }[name],
-                    beginner_prior=85 if name in {"jupiter", "saturn", "venus", "mars"} else 60,
-                    samples=samples,
-                    kind="planet",
-                    moon_separation_deg=sep,
-                    rise=rise,
-                    set=set_,
-                    transit=transit,
-                )
-            )
+            cand = self.body_candidate(lat, lon, name, start, end)
+            if cand is not None:
+                out.append(cand)
         return out
 
     def moon_candidate(
         self, lat: float, lon: float, start: datetime, end: datetime
     ) -> TargetCandidate | None:
-        samples = self.sample_body(lat, lon, "moon", start, end)
-        if not samples or max(s.altitude for s in samples) < 0:
+        return self.body_candidate(lat, lon, "moon", start, end)
+
+    def body_candidate(
+        self,
+        lat: float,
+        lon: float,
+        name: str,
+        start: datetime,
+        end: datetime,
+        *,
+        require_above_horizon: bool = True,
+    ) -> TargetCandidate | None:
+        body = "moon" if name == "moon" else name
+        samples = self.sample_body(lat, lon, body, start, end)
+        if not samples:
             return None
-        state = self.moon_state(lat, lon, start + (end - start) / 2)
+        peak = max(samples, key=lambda s: s.altitude)
+        if require_above_horizon and peak.altitude < 0:
+            return None
         span = self.sample_body(
-            lat, lon, "moon", start - timedelta(hours=6), end + timedelta(hours=6), 30
+            lat, lon, body, start - timedelta(hours=6), end + timedelta(hours=6), 30
         )
         rise, set_, transit = self.rise_set_transit(span)
+        if body == "moon":
+            state = self.moon_state(lat, lon, start + (end - start) / 2)
+            return TargetCandidate(
+                key="moon",
+                name="Moon",
+                object_type="moon",
+                friendly_type="Moon",
+                catalogue_ids=["Moon"],
+                ra=state.ra,
+                dec=state.dec,
+                magnitude=-12.0,
+                beginner_prior=90,
+                samples=samples,
+                kind="moon",
+                moon_separation_deg=180.0,
+                rise=rise,
+                set=set_,
+                transit=transit,
+            )
+        moon = self.moon_state(lat, lon, start + (end - start) / 2)
+        mid = start + (end - start) / 2
+        mid_sample = min(samples, key=lambda s: abs((s.time - mid).total_seconds()))
+        sep = _altaz_separation(
+            mid_sample.altitude, mid_sample.azimuth, moon.altitude, moon.azimuth
+        )
         return TargetCandidate(
-            key="moon",
-            name="Moon",
-            object_type="moon",
-            friendly_type="Moon",
-            catalogue_ids=["Moon"],
-            ra=state.ra,
-            dec=state.dec,
-            magnitude=-12.0,
-            beginner_prior=90,
+            key=name,
+            name=PLANET_LABELS[name],
+            object_type="planet",
+            friendly_type="Planet",
+            catalogue_ids=[PLANET_LABELS[name]],
+            ra=None,
+            dec=None,
+            magnitude={
+                "mercury": 0.0,
+                "venus": -4.0,
+                "mars": 0.5,
+                "jupiter": -2.2,
+                "saturn": 0.7,
+            }[name],
+            beginner_prior=85 if name in {"jupiter", "saturn", "venus", "mars"} else 60,
             samples=samples,
-            kind="moon",
-            moon_separation_deg=180.0,
+            kind="planet",
+            moon_separation_deg=sep,
             rise=rise,
             set=set_,
             transit=transit,

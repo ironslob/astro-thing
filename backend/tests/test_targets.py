@@ -3,7 +3,13 @@ from __future__ import annotations
 from datetime import UTC, datetime, timedelta
 
 from app.domain.direction import altitude_phrase, compass_direction, pointing_direction
-from app.domain.targets import PositionSample, TargetCandidate, rank_targets, score_target
+from app.domain.targets import (
+    PositionSample,
+    TargetCandidate,
+    rank_targets,
+    score_target,
+    unplaced_target,
+)
 
 
 def _samples(
@@ -100,3 +106,17 @@ def test_planets_only_when_visible() -> None:
     names = [t.name for t in ranked]
     assert "Jupiter" in names
     assert "Mars" not in names
+
+
+def test_unplaced_lookup_is_poor_not_silent() -> None:
+    hidden = _cand("far-south", _samples([-20, -18, -15, -12]), prior=80)
+    ranked = rank_targets([hidden], window_start=START, window_end=END, moon_illumination=0.2)
+    assert ranked == []
+    card = unplaced_target(
+        hidden,
+        moon_illumination=0.2,
+        reason="Not high enough in this window. Try another night.",
+    )
+    assert card.rating == "Poor"
+    assert card.id == "far-south"
+    assert "not high enough" in card.reason.lower()

@@ -9,6 +9,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.api.health import router as health_router
 from app.api.v1.auth import router as auth_router
+from app.api.v1.catalogue import router as catalogue_router
 from app.api.v1.forecast import router as forecast_router
 from app.api.v1.locations import router as locations_router
 from app.api.v1.me import router as me_router
@@ -63,6 +64,7 @@ def create_app() -> FastAPI:
     )
     application.include_router(health_router)
     application.include_router(locations_router, prefix="/api/v1")
+    application.include_router(catalogue_router, prefix="/api/v1")
     application.include_router(forecast_router, prefix="/api/v1")
     application.include_router(auth_router, prefix="/api/v1")
     application.include_router(me_router, prefix="/api/v1")
