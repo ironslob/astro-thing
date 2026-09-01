@@ -1,6 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-night: #1a1624;
+  --color-night-deep: #120f18;
+  --color-night-raised: #241f32;
+  --color-night-card: #2c263b;
+  --color-cream: #f4ead5;
+  --color-cream-dim: #cbbfa6;
+  --color-amber: #e8a54b;
+  --color-amber-deep: #c4842f;
+  --color-excellent: #8fce9a;
+  --color-good: #8fb8d6;
+  --color-fair: #e0c36c;
+  --color-poor: #d9a08c;
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --shadow-card: 0 18px 40px rgba(8, 6, 14, 0.35);
+}
 
 :root {
   color-scheme: dark;
@@ -14,7 +30,7 @@ body,
 
 body {
   margin: 0;
-  font-family: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body);
   background:
     radial-gradient(1200px 600px at 80% -10%, rgba(232, 165, 75, 0.12), transparent 50%),
     radial-gradient(900px 500px at -10% 20%, rgba(143, 184, 214, 0.08), transparent 45%),
@@ -26,7 +42,7 @@ h1,
 h2,
 h3,
 .font-display {
-  font-family: "Syne", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display);
 }
 
 ::selection {

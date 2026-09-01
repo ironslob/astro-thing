@@ -16,15 +16,17 @@ docker compose up --build
 
 Open [http://localhost:8080](http://localhost:8080).
 
+Compose images: PostgreSQL 18, Redis 8, nginx 1.30, Mailpit, Python 3.14, Node 24. If you already ran an older Compose stack, recreate volumes once so Postgres 18 can initialise (`docker compose down -v`).
+
 - Try **Brighton & Hove** on the home screen (real coordinates, live weather — not a fake forecast).
 - Or search `Hove`, `Brighton`, or a postcode such as `BN3 2AB`.
-- Magic-link emails appear in MailHog: [http://localhost:8025](http://localhost:8025).
+- Magic-link emails appear in Mailpit: [http://localhost:8025](http://localhost:8025).
 
 The first backend start runs migrations and imports the bundled catalogue + UK places.
 
 ### Without Docker
 
-Backend (Python 3.12+ / 3.13):
+Backend (Python 3.12+; images and CI use 3.14):
 
 ```bash
 cd backend

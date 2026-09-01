@@ -34,7 +34,7 @@ export function SignInPage() {
       </p>
       {sent ? (
         <p className="mt-6 rounded-2xl bg-night-card p-4" role="status">
-          Check your inbox (or MailHog at localhost:8025 if you're running locally).
+          Check your inbox (or Mailpit at localhost:8025 if you're running locally).
         </p>
       ) : (
         <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-3">

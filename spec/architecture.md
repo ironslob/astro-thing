@@ -20,7 +20,7 @@ Version 1.0 — 1 September 2026
 - Browser Geolocation API for `Use my current location`.
 
 ### Backend
-- Python 3.13+.
+- Python 3.12+ (CI and container images use 3.14).
 - FastAPI.
 - uv for dependency management.
 - Pydantic v2.

@@ -10,12 +10,10 @@ export function VerifyPage() {
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [error, setError] = useState<string | null>(null);
+  const missingToken = !token;
 
   useEffect(() => {
-    if (!token) {
-      setError("Missing sign-in token.");
-      return;
-    }
+    if (!token) return;
     api
       .verify(token)
       .then(async () => {
@@ -27,10 +25,12 @@ export function VerifyPage() {
       .catch((err: Error) => setError(err.message));
   }, [token, navigate, qc]);
 
+  const message = missingToken ? "Missing sign-in token." : error;
+
   return (
     <main className="mx-auto max-w-md px-4 pb-16">
-      {error ? (
-        <p role="alert">{error}</p>
+      {message ? (
+        <p role="alert">{message}</p>
       ) : (
         <div className="rounded-3xl bg-night-card p-6">
           <LoadingCopy label="Signing you in…" />
