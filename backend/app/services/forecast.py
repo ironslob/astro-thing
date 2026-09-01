@@ -83,6 +83,8 @@ class ForecastService:
         candidates: list[TargetCandidate] = []
 
         for obj in objects:
+            if 90.0 - abs(lat - obj.dec) < MIN_USEFUL_ALTITUDE:
+                continue
             samples = self.astronomy.sample_dso(lat, lon, obj.ra, obj.dec, start, end)
             if not samples or max(s.altitude for s in samples) < MIN_USEFUL_ALTITUDE:
                 continue
@@ -141,7 +143,7 @@ class ForecastService:
                 "source": forecast.source_label,
             },
             "scoring_version": settings.scoring_version or SCORING_VERSION,
-            "targets": [_target_payload(t) for t in ranked],
+            "targets": [_target_payload(t) for t in ranked[:12]],
             "empty_reason": (
                 None
                 if ranked
