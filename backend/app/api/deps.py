@@ -26,7 +26,9 @@ def get_weather_cache(db: DbDep) -> WeatherCacheService:
         redis_client = client
     except Exception:
         redis_client = None
-    return WeatherCacheService(db=db, provider=OpenMeteoWeatherProvider(), redis_client=redis_client)
+    return WeatherCacheService(
+        db=db, provider=OpenMeteoWeatherProvider(), redis_client=redis_client
+    )
 
 
 def optional_user(
