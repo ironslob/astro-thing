@@ -47,13 +47,14 @@ export function SignInPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="rounded-2xl border border-white/10 bg-night-raised px-4 py-3 outline-none ring-amber focus:ring-2"
+            className="min-h-12 rounded-2xl border border-white/10 bg-night-raised px-4 py-3 text-base outline-none ring-amber focus:ring-2"
           />
           {error && <p className="text-sm text-poor">{error}</p>}
           <button
             type="submit"
             disabled={busy}
-            className="mt-2 rounded-2xl bg-amber px-4 py-3 font-semibold text-night-deep"
+            aria-busy={busy}
+            className="mt-2 min-h-12 rounded-2xl bg-amber px-4 py-3 font-semibold text-night-deep disabled:opacity-80"
           >
             {busy ? "Sending…" : "Email me a link"}
           </button>

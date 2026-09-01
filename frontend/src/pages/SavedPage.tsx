@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "../api/client";
+import { ListSkeleton } from "../components/LoadingState";
 
 export function SavedPage() {
   const qc = useQueryClient();
@@ -21,7 +22,14 @@ export function SavedPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["saved"] }),
   });
 
-  if (me.isLoading) return <main className="px-4">Loading…</main>;
+  if (me.isLoading) {
+    return (
+      <main className="mx-auto max-w-2xl px-4 pb-16">
+        <h1 className="font-display text-3xl">Saved places</h1>
+        <ListSkeleton rows={3} label="Opening your places…" testId="saved-skeleton" />
+      </main>
+    );
+  }
   if (!me.data?.user) {
     return (
       <main className="mx-auto max-w-md px-4">
@@ -36,6 +44,9 @@ export function SavedPage() {
   return (
     <main className="mx-auto max-w-2xl px-4 pb-16">
       <h1 className="font-display text-3xl">Saved places</h1>
+      {saved.isPending && (
+        <ListSkeleton rows={3} label="Fetching saved places…" testId="saved-list-skeleton" />
+      )}
       <ul className="mt-6 space-y-4">
         {saved.data?.locations.map((loc) => (
           <li key={loc.id} className="rounded-3xl bg-night-card p-4">

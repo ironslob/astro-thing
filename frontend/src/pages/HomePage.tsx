@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../api/client";
 import type { PlaceMatch } from "../api/types";
 import { HOVE } from "../lib/demo";
+import { SearchSkeleton } from "../components/LoadingState";
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export function HomePage() {
   };
 
   return (
-    <main className="mx-auto flex max-w-xl flex-col gap-8 px-4 pb-16 pt-6">
+    <main className="mx-auto flex w-full max-w-xl flex-col gap-8 px-4 pb-16 pt-4 sm:pt-6">
       <div>
         <p className="text-sm uppercase tracking-[0.2em] text-amber">UK field guide</p>
         <h1 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">
@@ -59,7 +60,9 @@ export function HomePage() {
       <button
         type="button"
         onClick={useLocation}
-        className="rounded-2xl bg-amber px-6 py-4 text-left text-lg font-semibold text-night-deep shadow-card transition hover:bg-amber-deep"
+        disabled={geoState === "asking"}
+        aria-busy={geoState === "asking"}
+        className="min-h-14 rounded-2xl bg-amber px-6 py-4 text-left text-lg font-semibold text-night-deep shadow-card transition hover:bg-amber-deep disabled:opacity-80"
       >
         {geoState === "asking" ? "Finding you…" : "Use my location"}
       </button>
@@ -81,7 +84,7 @@ export function HomePage() {
 
       <button
         type="button"
-        className="text-left text-sm text-cream-dim underline decoration-amber/50 underline-offset-4 hover:text-cream"
+        className="min-h-11 text-left text-sm text-cream-dim underline decoration-amber/50 underline-offset-4 hover:text-cream"
         onClick={() => go({ name: HOVE.name, lat: HOVE.lat, lon: HOVE.lon })}
       >
         Try Brighton & Hove
@@ -113,17 +116,17 @@ export function LocationSearch({
         value={query}
         onChange={(e) => onQuery(e.target.value)}
         placeholder="Hove, Manchester, BN3…"
-        className="mt-2 w-full rounded-2xl border border-white/10 bg-night-raised px-4 py-3 text-base outline-none ring-amber focus:ring-2"
+        className="mt-2 min-h-12 w-full rounded-2xl border border-white/10 bg-night-raised px-4 py-3 text-base outline-none ring-amber focus:ring-2"
         autoComplete="off"
       />
-      {loading && <p className="mt-2 text-sm text-cream-dim">Looking up places…</p>}
-      {results.length > 0 && (
+      {loading && <SearchSkeleton />}
+      {!loading && results.length > 0 && (
         <ul className="mt-2 overflow-hidden rounded-2xl bg-night-card">
           {results.map((r) => (
             <li key={`${r.display_name}-${r.latitude}`}>
               <button
                 type="button"
-                className="w-full px-4 py-3 text-left hover:bg-white/5"
+                className="min-h-12 w-full px-4 py-3 text-left hover:bg-white/5"
                 onClick={() => onPick(r)}
               >
                 {r.display_name}

@@ -10,8 +10,8 @@ const PHRASES = [
   "Seeing what's up tonight…",
 ];
 
-export function loadingPhrase(tick: number): string {
-  return PHRASES[tick % PHRASES.length];
+export function loadingPhrase(tick: number, phrases: string[] = PHRASES): string {
+  return phrases[tick % phrases.length];
 }
 
 export function formatClock(iso: string): string {

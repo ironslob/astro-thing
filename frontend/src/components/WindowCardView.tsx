@@ -25,7 +25,7 @@ export function WindowCardView({
   return (
     <Link
       to={to}
-      className="block rounded-3xl bg-night-card p-5 shadow-card outline-none ring-amber transition hover:-translate-y-0.5 focus-visible:ring-2"
+      className="block min-h-[7.5rem] rounded-3xl bg-night-card p-5 shadow-card outline-none ring-amber transition motion-safe:hover:-translate-y-0.5 focus-visible:ring-2"
     >
       <div className="flex items-start justify-between gap-3">
         <h2 className="font-display text-2xl">{window.label}</h2>

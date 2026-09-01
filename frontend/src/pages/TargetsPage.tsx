@@ -1,11 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { api, ApiError } from "../api/client";
 import { TargetCardView } from "../components/TargetCardView";
 import { ErrorRetry } from "./WindowsPage";
-import { formatWindowSpan, loadingPhrase } from "../lib/demo";
+import { formatWindowSpan } from "../lib/demo";
 import { SaveLocationPrompt } from "../components/SaveLocationPrompt";
+import { TargetsSkeleton } from "../components/LoadingState";
 
 export function TargetsPage() {
   const [params] = useSearchParams();
@@ -15,7 +15,6 @@ export function TargetsPage() {
   const end = params.get("end") || "";
   const name = params.get("name") || "That spot";
   const label = params.get("label") || "This window";
-  const [tick, setTick] = useState(0);
 
   const query = useQuery({
     queryKey: ["targets", lat, lon, start, end],
@@ -23,32 +22,20 @@ export function TargetsPage() {
     enabled: Boolean(start && end),
   });
 
-  useEffect(() => {
-    if (!query.isLoading) return;
-    const id = setInterval(() => setTick((t) => t + 1), 1600);
-    return () => clearInterval(id);
-  }, [query.isLoading]);
-
   const featured = query.data?.targets.filter((t) => t.featured) ?? [];
   const rest = query.data?.targets.filter((t) => !t.featured) ?? [];
   const lead = featured[0];
   const others = [...featured.slice(1), ...rest];
 
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-16">
+    <main className="mx-auto max-w-6xl px-4 pb-16" aria-busy={query.isLoading}>
       <p className="text-sm text-cream-dim">
         {name} · {label}
       </p>
       <h1 className="mt-1 font-display text-3xl sm:text-4xl">What to point at</h1>
-      {start && end && (
-        <p className="mt-2 text-cream-dim">{formatWindowSpan(start, end)}</p>
-      )}
+      {start && end && <p className="mt-2 text-cream-dim">{formatWindowSpan(start, end)}</p>}
 
-      {query.isLoading && (
-        <p className="mt-8 text-lg" role="status">
-          {loadingPhrase(tick)}
-        </p>
-      )}
+      {query.isLoading && <TargetsSkeleton />}
       {query.isError && (
         <ErrorRetry
           message={query.error instanceof ApiError ? query.error.message : "Couldn't rank targets."}
@@ -74,7 +61,7 @@ export function TargetsPage() {
           ))}
         </div>
       )}
-      <SaveLocationPrompt name={name} lat={lat} lon={lon} />
+      {query.data && <SaveLocationPrompt name={name} lat={lat} lon={lon} />}
     </main>
   );
 }

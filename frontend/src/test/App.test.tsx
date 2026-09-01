@@ -4,11 +4,31 @@ import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter, Outlet, Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
+import { WindowsPage } from "../pages/WindowsPage";
+import { TargetsPage } from "../pages/TargetsPage";
 import { WindowCardView } from "../components/WindowCardView";
 import { TargetCardView } from "../components/TargetCardView";
 import { SaveLocationPrompt } from "../components/SaveLocationPrompt";
 import { ErrorRetry } from "../pages/WindowsPage";
+import { loadingPhrase } from "../lib/demo";
 import type { TargetCard, WindowCard } from "../api/types";
+
+vi.mock("../api/client", () => ({
+  ApiError: class ApiError extends Error {
+    status: number;
+    constructor(message: string, status: number) {
+      super(message);
+      this.status = status;
+    }
+  },
+  api: {
+    windows: () => new Promise(() => {}),
+    targets: () => new Promise(() => {}),
+    searchPlaces: () => new Promise(() => {}),
+    me: () => Promise.resolve({ user: null }),
+    listLocations: () => new Promise(() => {}),
+  },
+}));
 
 function wrap(ui: ReactElement, path = "/") {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
@@ -103,4 +123,39 @@ test("error state offers retry", async () => {
   expect(screen.getByText(/couldn't check the clouds/i)).toBeInTheDocument();
   await user.click(screen.getByRole("button", { name: /try again/i }));
   expect(onRetry).toHaveBeenCalled();
+});
+
+test("loadingPhrase rotates through the friendly copy", () => {
+  expect(loadingPhrase(0)).toBe("Checking the clouds…");
+  expect(loadingPhrase(1)).toBe("Looking for a dark patch…");
+  expect(loadingPhrase(3)).toBe("Checking the clouds…");
+  expect(loadingPhrase(0, ["Finding a good target…"])).toBe("Finding a good target…");
+});
+
+test("windows page shows a skeleton instead of a blank screen", async () => {
+  wrap(<WindowsPage />, "/windows?lat=50.8279&lon=-0.1688&name=Hove");
+  expect(await screen.findByTestId("windows-skeleton")).toBeInTheDocument();
+  expect(screen.getByRole("status")).toHaveTextContent(
+    /checking the clouds|looking for a dark patch|seeing what's up/i,
+  );
+  expect(screen.queryByText(/keep an eye on this spot/i)).not.toBeInTheDocument();
+});
+
+test("targets page shows a skeleton while ranking", async () => {
+  wrap(
+    <TargetsPage />,
+    "/targets?lat=50.8279&lon=-0.1688&name=Hove&start=2026-01-15T21:30:00Z&end=2026-01-16T00:30:00Z&label=Tonight",
+  );
+  expect(await screen.findByTestId("targets-skeleton")).toBeInTheDocument();
+  expect(screen.getByRole("status")).toHaveTextContent(
+    /seeing what's up|finding a good target|checking what's well placed/i,
+  );
+  expect(screen.queryByText(/keep an eye on this spot/i)).not.toBeInTheDocument();
+});
+
+test("home search shows a skeleton while places load", async () => {
+  const user = userEvent.setup();
+  wrap(<HomePage />);
+  await user.type(screen.getByLabelText(/uk place or postcode/i), "Ho");
+  expect(await screen.findByTestId("search-skeleton")).toBeInTheDocument();
 });

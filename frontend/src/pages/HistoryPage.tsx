@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../api/client";
+import { ListSkeleton } from "../components/LoadingState";
 import { RatingBadge } from "../components/RatingBadge";
 import type { Rating, WindowCard } from "../api/types";
 
@@ -12,7 +13,17 @@ export function HistoryPage() {
     enabled: Boolean(id),
   });
 
-  if (query.isLoading) return <main className="px-4">Loading history…</main>;
+  if (query.isLoading) {
+    return (
+      <main className="mx-auto max-w-2xl px-4 pb-16">
+        <p className="text-sm text-cream-dim">
+          <Link to="/saved">Saved places</Link>
+        </p>
+        <h1 className="font-display text-3xl">Forecast history</h1>
+        <ListSkeleton rows={3} label="Looking back at this spot…" testId="history-skeleton" />
+      </main>
+    );
+  }
   if (query.isError || !query.data) {
     return (
       <main className="px-4">

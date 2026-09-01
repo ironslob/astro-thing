@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { api } from "../api/client";
+import { LoadingCopy } from "../components/LoadingState";
 
 export function VerifyPage() {
   const [params] = useSearchParams();
@@ -27,8 +28,15 @@ export function VerifyPage() {
   }, [token, navigate, qc]);
 
   return (
-    <main className="mx-auto max-w-md px-4">
-      {error ? <p>{error}</p> : <p role="status">Signing you in…</p>}
+    <main className="mx-auto max-w-md px-4 pb-16">
+      {error ? (
+        <p role="alert">{error}</p>
+      ) : (
+        <div className="rounded-3xl bg-night-card p-6">
+          <LoadingCopy label="Signing you in…" />
+          <p className="mt-2 text-sm text-cream-dim">Just a moment — then we'll take you back.</p>
+        </div>
+      )}
     </main>
   );
 }

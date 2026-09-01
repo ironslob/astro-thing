@@ -1,18 +1,16 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { api, ApiError } from "../api/client";
 import type { WindowCard } from "../api/types";
 import { WindowCardView } from "../components/WindowCardView";
 import { SaveLocationPrompt } from "../components/SaveLocationPrompt";
-import { loadingPhrase } from "../lib/demo";
+import { WindowsSkeleton } from "../components/LoadingState";
 
 export function WindowsPage() {
   const [params] = useSearchParams();
   const lat = Number(params.get("lat"));
   const lon = Number(params.get("lon"));
   const name = params.get("name") || "That spot";
-  const [tick, setTick] = useState(0);
 
   const query = useQuery({
     queryKey: ["windows", lat, lon],
@@ -20,15 +18,9 @@ export function WindowsPage() {
     enabled: Number.isFinite(lat) && Number.isFinite(lon),
   });
 
-  useEffect(() => {
-    if (!query.isLoading) return;
-    const id = setInterval(() => setTick((t) => t + 1), 1600);
-    return () => clearInterval(id);
-  }, [query.isLoading]);
-
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
     return (
-      <main className="mx-auto max-w-3xl px-4">
+      <main className="mx-auto max-w-3xl px-4 pb-16">
         <p>We need a location first.</p>
         <Link to="/" className="text-amber">
           Choose a place
@@ -38,15 +30,11 @@ export function WindowsPage() {
   }
 
   return (
-    <main className="mx-auto max-w-6xl px-4 pb-16">
+    <main className="mx-auto max-w-6xl px-4 pb-16" aria-busy={query.isLoading}>
       <p className="text-sm text-cream-dim">{name}</p>
       <h1 className="mt-1 font-display text-3xl sm:text-4xl">The next few nights</h1>
 
-      {query.isLoading && (
-        <p className="mt-8 text-lg" role="status">
-          {loadingPhrase(tick)}
-        </p>
-      )}
+      {query.isLoading && <WindowsSkeleton />}
 
       {query.isError && (
         <ErrorRetry
@@ -62,12 +50,7 @@ export function WindowsPage() {
               Using a slightly older forecast — the weather service is having a moment.
             </p>
           )}
-          <WindowList
-            name={name}
-            lat={lat}
-            lon={lon}
-            windows={query.data.windows}
-          />
+          <WindowList name={name} lat={lat} lon={lon} windows={query.data.windows} />
           <SaveLocationPrompt name={name} lat={lat} lon={lon} />
         </>
       )}
@@ -111,7 +94,7 @@ export function ErrorRetry({ message, onRetry }: { message: string; onRetry: () 
       <button
         type="button"
         onClick={onRetry}
-        className="mt-3 rounded-xl bg-amber px-4 py-2 font-semibold text-night-deep"
+        className="mt-3 min-h-11 rounded-xl bg-amber px-4 py-2 font-semibold text-night-deep"
       >
         Try again
       </button>

@@ -46,7 +46,7 @@ export function SaveLocationPrompt({
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
             to={`/sign-in?next=${next}`}
-            className="rounded-xl bg-amber px-4 py-2 font-semibold text-night-deep"
+            className="inline-flex min-h-11 items-center rounded-xl bg-amber px-4 py-2 font-semibold text-night-deep"
           >
             Save this location
           </Link>
@@ -66,7 +66,7 @@ export function SaveLocationPrompt({
         <button
           type="button"
           onClick={() => save.mutate()}
-          className="rounded-xl bg-amber px-4 py-2 font-semibold text-night-deep"
+          className="min-h-11 rounded-xl bg-amber px-4 py-2 font-semibold text-night-deep"
         >
           {save.isSuccess ? "Saved" : "Save this location"}
         </button>

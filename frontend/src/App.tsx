@@ -13,39 +13,41 @@ function Shell() {
   const me = useQuery({ queryKey: ["me"], queryFn: api.me });
   const user = me.data?.user;
   return (
-    <div className="min-h-screen">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg tracking-tight">
-          <MoonMark />
-          Astro Window
-        </Link>
-        <nav className="flex items-center gap-4 text-sm text-cream-dim">
-          {user ? (
-            <>
-              <NavLink to="/saved" className="hover:text-cream">
-                Saved places
+    <div className="min-h-dvh">
+      <header className="sticky top-0 z-20 border-b border-white/5 bg-night/85 px-4 py-3 backdrop-blur-md pt-[max(0.75rem,env(safe-area-inset-top))]">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
+          <Link to="/" className="flex min-h-11 items-center gap-2 font-display text-lg tracking-tight">
+            <MoonMark />
+            Astro Window
+          </Link>
+          <nav className="flex shrink-0 items-center gap-3 text-sm text-cream-dim sm:gap-4">
+            {user ? (
+              <>
+                <NavLink to="/saved" className="inline-flex min-h-11 items-center hover:text-cream">
+                  Saved places
+                </NavLink>
+                <span className="hidden max-w-[12rem] truncate sm:inline">{user.email}</span>
+                <button
+                  type="button"
+                  className="inline-flex min-h-11 items-center hover:text-cream"
+                  onClick={async () => {
+                    await api.logout();
+                    me.refetch();
+                  }}
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <NavLink to="/sign-in" className="inline-flex min-h-11 items-center hover:text-cream">
+                Sign in
               </NavLink>
-              <span className="hidden sm:inline">{user.email}</span>
-              <button
-                type="button"
-                className="hover:text-cream"
-                onClick={async () => {
-                  await api.logout();
-                  me.refetch();
-                }}
-              >
-                Sign out
-              </button>
-            </>
-          ) : (
-            <NavLink to="/sign-in" className="hover:text-cream">
-              Sign in
-            </NavLink>
-          )}
-        </nav>
+            )}
+          </nav>
+        </div>
       </header>
       <Outlet context={{ user }} />
-      <footer className="mx-auto max-w-6xl px-4 py-10 text-xs text-cream-dim">
+      <footer className="mx-auto max-w-6xl px-4 py-10 text-xs text-cream-dim pb-[max(2.5rem,env(safe-area-inset-bottom))]">
         <p>
           Weather: Open-Meteo. Places: GeoNames (CC-BY 4.0). Deep-sky catalogue derived from OpenNGC
           (CC-BY-SA 4.0).
