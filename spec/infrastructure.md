@@ -1,0 +1,131 @@
+# Infrastructure Specification — Astro Window
+Version 1.0 — 1 September 2026
+
+## Environments
+Use the established progression:
+- Local: Docker Compose.
+- Development/staging: Railway.
+- Production: AWS, with portability preserved from the beginning.
+
+The application must not rely on Railway-specific behaviour in domain code.
+
+## Local development
+Root `docker-compose.yml` should provide everything needed for a functional local environment:
+- frontend
+- backend
+- PostgreSQL
+- Redis
+- Celery worker
+- Celery beat/scheduler where needed
+
+Aim for:
+`docker compose up --build`
+
+Document any one-time migration/catalogue-import command clearly. Prefer automatic safe initialization for development where reasonable.
+
+Use named volumes for PostgreSQL and Redis development persistence where useful.
+
+## Configuration
+Use environment variables with `.env.example`.
+
+Expected categories:
+- database URL
+- Redis URL
+- auth secrets/provider configuration
+- weather provider configuration if required
+- frontend public API base URL
+- environment name
+- logging level
+
+No secrets committed to git.
+
+## Railway
+Provide deployable service configuration/documentation for:
+- frontend
+- FastAPI backend
+- PostgreSQL
+- Redis
+- worker
+- scheduler
+
+Migrations must be safe to run as a release/deploy step.
+
+Use health checks.
+
+## AWS production target
+Design for a straightforward migration to AWS without application rewrite.
+
+Suitable mapping:
+- Frontend: S3 + CloudFront or containerized web hosting.
+- Backend/worker/scheduler: ECS Fargate.
+- PostgreSQL: RDS PostgreSQL.
+- Redis: ElastiCache.
+- Container images: ECR.
+- Secrets: Secrets Manager / SSM Parameter Store.
+- Logs/metrics: CloudWatch.
+- DNS/TLS: Route 53 + ACM where applicable.
+
+Do not require AWS implementation to run the local MVP, but include production-ready deployment notes/IaC skeleton if practical.
+
+## CI/CD
+GitHub Actions.
+
+Pull request checks:
+- frontend lint/typecheck/tests/build
+- backend Ruff/format check/tests
+- migration sanity where practical
+- Docker build
+
+CI must never depend on live Open-Meteo or other live provider availability. Mock/fake provider adapters using checked-in fixtures.
+
+Deployment:
+- main branch may deploy to Railway staging after tests.
+- production AWS deployment remains separately controlled.
+
+## Caching and provider protection
+Redis/application cache plus PostgreSQL forecast cache should prevent request amplification.
+
+Requirements:
+- Geographic cell deduplication.
+- Single-flight/lock behaviour on concurrent cache misses where practical, so many simultaneous requests for one cell do not all call the weather provider.
+- Public endpoint rate limiting.
+- Provider timeouts and bounded retries.
+- Never retry enough times to turn one user lookup into uncontrolled provider traffic.
+
+## Background processing
+Scheduler identifies saved locations needing refresh.
+
+Group refresh work by geographic cache cell before weather retrieval.
+
+Worker tasks should be idempotent and retry-safe.
+
+## Backups
+Production PostgreSQL must use automated backups and point-in-time recovery appropriate to the selected RDS tier.
+
+No special backup requirement for Redis; it is not the source of truth.
+
+## Monitoring
+At minimum track:
+- backend error rate
+- weather-provider error rate/latency
+- cache hit ratio
+- forecast age
+- job failures
+- API latency
+- database health
+
+Set alarms in production for sustained provider/backend failures.
+
+## Privacy
+Precise coordinates are potentially sensitive.
+
+Operational logs should avoid raw precise coordinates by default. Use cache cell IDs, coarse coordinates, or hashes where sufficient.
+
+Saved coordinates are application data and should be protected with normal database access controls/backups.
+
+Anonymous requests should not be converted into persistent per-user location histories.
+
+## Data attribution/licensing
+Document licences and required attribution for all bundled datasets and weather sources.
+
+Pay particular attention to the exact licence of any selected Open-Meteo model/data source and any UK place dataset before production/commercial use. Keep provider attribution configurable in the UI/footer/details where required.
