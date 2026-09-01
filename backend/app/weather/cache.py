@@ -18,7 +18,6 @@ from app.weather.provider import WeatherProvider, WeatherProviderError
 logger = logging.getLogger(__name__)
 
 LOCK_TTL = 20
-LOCK_WAIT_SECONDS = 8
 
 
 def forecast_to_payload(forecast: NormalizedForecast) -> dict[str, Any]:
@@ -171,12 +170,11 @@ class WeatherCacheService:
     def _acquire_lock(self, lock_key: str) -> bool:
         if self.redis is None:
             return False
-        deadline = time.time() + LOCK_WAIT_SECONDS
-        while time.time() < deadline:
+        try:
             if self.redis.set(lock_key, "1", nx=True, ex=LOCK_TTL):
                 return True
-            time.sleep(0.15)
-            # If the other holder finished, the caller re-checks cache.
+        except Exception:
+            logger.debug("redis lock acquire failed", exc_info=True)
             return False
         return False
 

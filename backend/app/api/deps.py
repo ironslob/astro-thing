@@ -19,11 +19,14 @@ DbDep = Annotated[Session, Depends(get_db)]
 
 
 def get_weather_cache(db: DbDep) -> WeatherCacheService:
+    redis_client = None
     try:
-        redis = get_redis()
+        client = get_redis()
+        client.ping()
+        redis_client = client
     except Exception:
-        redis = None
-    return WeatherCacheService(db=db, provider=OpenMeteoWeatherProvider(), redis_client=redis)
+        redis_client = None
+    return WeatherCacheService(db=db, provider=OpenMeteoWeatherProvider(), redis_client=redis_client)
 
 
 def optional_user(
