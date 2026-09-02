@@ -50,7 +50,8 @@ function Shell() {
       <footer className="mx-auto max-w-6xl px-4 py-10 text-xs text-cream-dim pb-[max(2.5rem,env(safe-area-inset-bottom))]">
         <p>
           Weather: Open-Meteo. Places: Open-Meteo Geocoding (GeoNames, CC-BY 4.0) and postcodes.io.
-          Deep-sky catalogue derived from OpenNGC (CC-BY-SA 4.0).
+          Deep-sky catalogue derived from OpenNGC (CC-BY-SA 4.0). Target photos: Wikimedia Commons
+          (authors as credited on each card).
         </p>
       </footer>
     </div>

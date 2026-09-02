@@ -11,6 +11,7 @@ from app.importers.openngc import _beginner_prior, _object_id, import_openngc_fi
 from app.importers.search_text import build_search_text
 from app.models.catalogue import DeepSkyObject
 from app.services.catalogue import search_catalogue
+from app.services.images import apply_catalogue_images
 
 HEADER = (
     "Name;Type;RA;Dec;Const;MajAx;MinAx;PosAng;B-Mag;V-Mag;J-Mag;H-Mag;K-Mag;SurfBr;"
@@ -63,14 +64,20 @@ def test_import_tiny_csv_and_search(tmp_path: Path) -> None:
     db = Session()
     n = import_openngc_files(db, [csv_path])
     assert n == 2
+    applied = apply_catalogue_images(db)
+    assert applied >= 1
     andromeda = db.get(DeepSkyObject, "ngc-224")
     assert andromeda is not None
     assert andromeda.common_name == "Andromeda Galaxy"
     assert "M31" in andromeda.catalogue_ids
+    assert len(andromeda.images) >= 2
     hits = search_catalogue(db, "Andromeda")
-    assert any(h["id"] == "ngc-224" for h in hits)
+    andromeda_hit = next(h for h in hits if h["id"] == "ngc-224")
+    assert len(andromeda_hit["images"]) >= 2
+    assert "upload.wikimedia.org" in andromeda_hit["images"][0]["url"]
     pleiades = search_catalogue(db, "Pleiades")
     assert any(h["id"] == "mel-22" for h in pleiades)
     planets = search_catalogue(db, "Venus")
-    assert any(h["id"] == "venus" for h in planets)
+    venus = next(h for h in planets if h["id"] == "venus")
+    assert venus["images"]
     db.close()

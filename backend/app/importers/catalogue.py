@@ -5,39 +5,30 @@ from pathlib import Path
 
 from sqlalchemy.orm import Session
 
+from app.importers.paths import catalogue_dir
 from app.importers.search_text import build_search_text
 from app.models.catalogue import DeepSkyObject
 
-DATA_CANDIDATES = [
-    Path("/data/catalogue"),
-    Path(__file__).resolve().parents[3] / "data" / "catalogue",
-]
 
-
-def catalogue_dir() -> Path:
-    for p in DATA_CANDIDATES:
-        if p.exists():
-            return p
-    raise FileNotFoundError("catalogue data directory not found")
-
-
-def import_json_objects(db: Session, path: Path) -> int:
+def import_json_objects(db: Session, path: Path) -> set[str]:
     data = json.loads(path.read_text())
-    count = 0
+    ids: set[str] = set()
     for row in data:
-        count += _upsert_row(db, row)
+        ident = _upsert_row(db, row)
+        if ident:
+            ids.add(ident)
     db.commit()
-    return count
+    return ids
 
 
 def import_bright_stars(db: Session, path: Path | None = None) -> int:
     star_path = path or catalogue_dir() / "bright_stars.json"
     if not star_path.exists():
         return 0
-    return import_json_objects(db, star_path)
+    return len(import_json_objects(db, star_path))
 
 
-def _upsert_row(db: Session, row: dict) -> int:
+def _upsert_row(db: Session, row: dict) -> str:
     ident = row["id"]
     ids = list(row.get("catalogue_ids") or [])
     primary = row["primary_name"]
@@ -56,10 +47,12 @@ def _upsert_row(db: Session, row: dict) -> int:
         "search_text": build_search_text(primary, common, ids),
         "extra": row.get("metadata") or {},
     }
+    if "images" in row:
+        payload["images"] = list(row.get("images") or [])
     existing = db.get(DeepSkyObject, ident)
     if existing is None:
         db.add(DeepSkyObject(id=ident, **payload))
     else:
         for k, v in payload.items():
             setattr(existing, k, v)
-    return 1
+    return ident

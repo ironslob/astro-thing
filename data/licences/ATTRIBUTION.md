@@ -28,7 +28,14 @@ Documented here so the product can show and ship required credit. Check these be
 - Source: https://github.com/mattiaverga/OpenNGC (`database_files/NGC.csv` and `addendum.csv`)
 - Licence: Creative Commons Attribution-ShareAlike 4.0 (CC-BY-SA-4.0)
 - Shipped under `data/catalogue/` and imported into Postgres at seed time. Ranking uses a beginner-prior subset; object search covers the imported catalogue.
-- Importer: `backend/app/importers/openngc.py`.
+- Importer: `backend/app/importers/openngc.py`. Full refresh: `python -m app.importers.refresh` (run locally, then commit file changes). The next API start re-imports when the bundle digest changes.
+
+## Wikimedia Commons (target portraits)
+- Thumbnails of Messier objects, named nebulae/clusters, major planets and the Moon.
+- Stored as a multi-image overlay in `data/catalogue/images.json` and copied onto `deep_sky_objects.images` at seed time. Each object can hold several photos (portrait, wide field, alternate processing, and so on).
+- Shown on target cards and catalogue search; not fetched from Wikipedia at request time.
+- Licences vary by image (often CC BY / CC BY-SA / CC0 / public domain). Each card credits the author of the visible photo.
+- Attribution in the app footer: “Target photos: Wikimedia Commons”.
 
 ## Bright named stars
 - Small bundled list in `data/catalogue/bright_stars.json` with public J2000 coordinates (Yale Bright Star Catalogue / IAU common names).

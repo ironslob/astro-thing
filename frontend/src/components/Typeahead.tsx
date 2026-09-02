@@ -11,6 +11,7 @@ export function Typeahead<T>({
   getKey,
   getLabel,
   getHint,
+  getImage,
   onPick,
 }: {
   inputId: string;
@@ -23,6 +24,7 @@ export function Typeahead<T>({
   getKey: (item: T) => string;
   getLabel: (item: T) => string;
   getHint?: (item: T) => string | undefined;
+  getImage?: (item: T) => string | undefined;
   onPick: (item: T) => void;
 }) {
   return (
@@ -41,20 +43,34 @@ export function Typeahead<T>({
       {loading && <SearchSkeleton />}
       {!loading && results.length > 0 && (
         <ul className="mt-2 overflow-hidden rounded-2xl bg-night-card">
-          {results.map((item) => (
-            <li key={getKey(item)}>
-              <button
-                type="button"
-                className="min-h-12 w-full px-4 py-3 text-left hover:bg-white/5"
-                onClick={() => onPick(item)}
-              >
-                <span>{getLabel(item)}</span>
-                {getHint?.(item) && (
-                  <span className="mt-0.5 block text-sm text-cream-dim">{getHint(item)}</span>
-                )}
-              </button>
-            </li>
-          ))}
+          {results.map((item) => {
+            const thumb = getImage?.(item);
+            return (
+              <li key={getKey(item)}>
+                <button
+                  type="button"
+                  className="flex min-h-12 w-full items-center gap-3 px-4 py-3 text-left hover:bg-white/5"
+                  onClick={() => onPick(item)}
+                >
+                  {thumb ? (
+                    <img
+                      src={thumb}
+                      alt=""
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 shrink-0 rounded-lg object-cover"
+                    />
+                  ) : null}
+                  <span>
+                    <span>{getLabel(item)}</span>
+                    {getHint?.(item) && (
+                      <span className="mt-0.5 block text-sm text-cream-dim">{getHint(item)}</span>
+                    )}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

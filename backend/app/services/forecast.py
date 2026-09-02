@@ -19,6 +19,7 @@ from app.domain.models import NormalizedForecast, ObservingWindow
 from app.domain.targets import RankedTarget, TargetCandidate, rank_targets, unplaced_target
 from app.domain.windows import generate_windows
 from app.models.catalogue import DeepSkyObject
+from app.services.images import images_for, normalize_images
 from app.weather.cache import WeatherCacheService
 
 
@@ -106,6 +107,8 @@ class ForecastService:
         moon_cand = self.astronomy.moon_candidate(lat, lon, start, end)
         if moon_cand:
             candidates.append(moon_cand)
+        for cand in candidates:
+            self._ensure_images(cand)
 
         ranked = rank_targets(
             candidates,
@@ -193,6 +196,7 @@ class ForecastService:
             rise=rise,
             set=set_,
             transit=transit,
+            images=normalize_images(obj.images),
         )
 
     def _pin_object(
@@ -209,6 +213,7 @@ class ForecastService:
         cand = self._lookup_candidate(object_id, lat, lon, start, end, mid)
         if cand is None:
             raise UnknownTarget(object_id)
+        self._ensure_images(cand)
         ranked = rank_targets(
             [cand],
             window_start=start,
@@ -252,6 +257,11 @@ class ForecastService:
         if obj is None:
             return None
         return self._dso_candidate(lat, lon, obj, start, end, mid, require_useful=False)
+
+    @staticmethod
+    def _ensure_images(cand: TargetCandidate) -> None:
+        if not cand.images:
+            cand.images = images_for(object_id=cand.key, catalogue_ids=cand.catalogue_ids)
 
     def _window_payload(self, window: ObservingWindow, tz_name: str) -> dict:
         tz = ZoneInfo(tz_name)
@@ -340,4 +350,5 @@ def _target_payload(t: RankedTarget) -> dict:
         "featured": t.featured,
         "kind": t.kind,
         "details": t.details,
+        "images": list(t.images or []),
     }

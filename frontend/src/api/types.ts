@@ -7,11 +7,20 @@ export type PlaceMatch = {
   place_type: string;
 };
 
+export type TargetImage = {
+  url: string;
+  credit: string;
+  license: string;
+  page: string;
+  label?: string;
+};
+
 export type CatalogueMatch = {
   id: string;
   display_name: string;
   friendly_type: string;
   catalogue_ids: string[];
+  images?: TargetImage[];
 };
 
 export type WindowCard = {
@@ -61,6 +70,7 @@ export type TargetCard = {
   featured: boolean;
   kind: string;
   details: TargetDetails;
+  images?: TargetImage[];
 };
 
 export type TargetsResponse = {

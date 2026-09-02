@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from sqlalchemy import Float, Integer, String
+from datetime import datetime
+
+from sqlalchemy import DateTime, Float, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.core.db import Base
@@ -23,3 +25,14 @@ class DeepSkyObject(Base):
     beginner_prior: Mapped[int] = mapped_column(Integer, default=50, index=True)
     search_text: Mapped[str] = mapped_column(String(1024), default="", index=True)
     extra: Mapped[dict] = mapped_column("metadata", JSON_DOC, default=dict)
+    images: Mapped[list] = mapped_column(JSON_DOC, default=list)
+
+
+class CatalogueMeta(Base):
+    """Digest of the bundled catalogue files last applied to this database."""
+
+    __tablename__ = "catalogue_meta"
+
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    digest: Mapped[str] = mapped_column(String(64))
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))

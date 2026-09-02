@@ -39,6 +39,7 @@ class TargetCandidate:
     rise: datetime | None = None
     set: datetime | None = None
     transit: datetime | None = None
+    images: list[dict] = field(default_factory=list)
 
 
 @dataclass
@@ -56,6 +57,7 @@ class RankedTarget:
     details: dict
     kind: str
     catalogue_ids: list[str] = field(default_factory=list)
+    images: list[dict] = field(default_factory=list)
 
 
 def _peak(samples: list[PositionSample]) -> PositionSample:
@@ -214,6 +216,7 @@ def rank_targets(
                 details=details,
                 kind=cand.kind,
                 catalogue_ids=cand.catalogue_ids,
+                images=list(cand.images or []),
             )
         )
     return ranked
@@ -282,4 +285,5 @@ def unplaced_target(
         details=details,
         kind=candidate.kind,
         catalogue_ids=candidate.catalogue_ids,
+        images=list(candidate.images or []),
     )

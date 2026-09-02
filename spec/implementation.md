@@ -85,7 +85,8 @@ Do not depend on a live astronomy catalogue API at runtime.
 Provide:
 - Import script.
 - Curated seed fixture sufficient for tests/demo.
-- Repeatable import/upsert process.
+- Repeatable import/upsert process (`python -m app.importers.refresh`), including prune of objects removed upstream.
+- Digest-based startup re-import when bundled files change.
 - Licence/attribution notes in repository documentation.
 
 Include familiar targets where catalogue/licensing permits, such as Andromeda Galaxy, Orion Nebula, Pleiades and other suitable northern-sky objects, so the demo is meaningful across seasons.

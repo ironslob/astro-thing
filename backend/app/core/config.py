@@ -38,5 +38,12 @@ class Settings(BaseSettings):
 
     timezone_default: str = "Europe/London"
 
+    openngc_ngc_url: str = (
+        "https://raw.githubusercontent.com/mattiaverga/OpenNGC/master/database_files/NGC.csv"
+    )
+    openngc_addendum_url: str = (
+        "https://raw.githubusercontent.com/mattiaverga/OpenNGC/master/database_files/addendum.csv"
+    )
+
 
 settings = Settings()

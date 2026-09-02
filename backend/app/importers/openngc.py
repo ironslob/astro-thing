@@ -14,7 +14,7 @@ from pathlib import Path
 from sqlalchemy import delete
 from sqlalchemy.orm import Session
 
-from app.importers.catalogue import catalogue_dir
+from app.importers.paths import catalogue_dir
 from app.importers.search_text import build_search_text
 from app.models.catalogue import DeepSkyObject
 
@@ -186,14 +186,14 @@ def _open_reader(path: Path) -> csv.DictReader:
     return csv.DictReader(io.StringIO(text), delimiter=delim)
 
 
-def _upsert_openngc_row(db: Session, row: dict) -> bool:
+def _upsert_openngc_row(db: Session, row: dict) -> str | None:
     name = (row.get("Name") or row.get("name") or "").strip()
     if not name:
-        return False
+        return None
     ra = _ra_to_deg(row.get("RA") or row.get("ra") or "")
     dec = _dec_to_deg(row.get("Dec") or row.get("dec") or "")
     if ra is None or dec is None:
-        return False
+        return None
     raw_type = (row.get("Type") or "G").strip()
     otype, friendly = TYPE_MAP.get(raw_type, ("other", "Object"))
     pretty = _pretty_name(name)
@@ -229,25 +229,32 @@ def _upsert_openngc_row(db: Session, row: dict) -> bool:
     else:
         for k, v in payload.items():
             setattr(existing, k, v)
-    return True
+    return ident
 
 
-def import_openngc_files(db: Session, paths: list[Path], *, replace: bool = False) -> int:
-    if replace:
-        db.execute(delete(DeepSkyObject))
-        db.commit()
+def import_openngc_ids(db: Session, paths: list[Path]) -> set[str]:
+    keep: set[str] = set()
     n = 0
     for path in paths:
         if not path.exists():
             continue
         reader = _open_reader(path)
         for row in reader:
-            if _upsert_openngc_row(db, row):
+            ident = _upsert_openngc_row(db, row)
+            if ident:
+                keep.add(ident)
                 n += 1
             if n and n % 500 == 0:
                 db.commit()
     db.commit()
-    return n
+    return keep
+
+
+def import_openngc_files(db: Session, paths: list[Path], *, replace: bool = False) -> int:
+    if replace:
+        db.execute(delete(DeepSkyObject))
+        db.commit()
+    return len(import_openngc_ids(db, paths))
 
 
 def import_openngc(db: Session, folder: Path | None = None) -> int:
