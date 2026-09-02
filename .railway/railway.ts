@@ -20,7 +20,8 @@ export default defineRailway((ctx) => {
     LOG_LEVEL: "INFO",
     SECRET_KEY: ctx.randomString("app-secret"),
     SCORING_VERSION: "1.0.0",
-    PORT: "8000",
+    PORT: "8080",
+    UVICORN_HOST: "::",
     DATABASE_URL: db.env.DATABASE_URL,
     REDIS_URL: cache.env.REDIS_URL,
     CELERY_BROKER_URL: cache.env.REDIS_URL,
@@ -43,7 +44,7 @@ export default defineRailway((ctx) => {
   const backend = service("backend", {
     source: backendSource,
     build: backendBuild,
-    start: "/app/entrypoint.sh uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    start: "/app/entrypoint.sh uvicorn app.main:app --host :: --port 8080",
     healthcheck: "/health",
     healthcheckTimeout: 600,
     env: appEnv,
@@ -71,7 +72,7 @@ export default defineRailway((ctx) => {
       watchPatterns: ["frontend/**"],
     },
     env: {
-      PORT: "80",
+      PORT: "8080",
       VITE_API_BASE_URL: "/api/v1",
     },
   });
@@ -86,8 +87,8 @@ export default defineRailway((ctx) => {
     healthcheck: "/health",
     healthcheckTimeout: 300,
     env: {
-      BACKEND_UPSTREAM: "http://${{backend.RAILWAY_PRIVATE_DOMAIN}}:8000",
-      FRONTEND_UPSTREAM: "http://${{frontend.RAILWAY_PRIVATE_DOMAIN}}:80",
+      BACKEND_UPSTREAM: "http://${{backend.RAILWAY_PRIVATE_DOMAIN}}:8080",
+      FRONTEND_UPSTREAM: "http://${{frontend.RAILWAY_PRIVATE_DOMAIN}}:8080",
     },
   });
 

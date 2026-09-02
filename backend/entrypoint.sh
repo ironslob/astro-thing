@@ -23,9 +23,10 @@ fi
 
 # Railway's start command replaces the image ENTRYPOINT. IaC therefore
 # invokes this script explicitly. Bind uvicorn to $PORT because the
-# platform does not expand ${PORT:-8000} in start commands.
+# platform does not expand ${PORT:-8000} in start commands. Private
+# networking is IPv6; default to :: on Railway and 0.0.0.0 locally.
 if [ "${1:-}" = "uvicorn" ]; then
-  exec uvicorn app.main:app --host 0.0.0.0 --port "${PORT:-8000}"
+  exec uvicorn app.main:app --host "${UVICORN_HOST:-0.0.0.0}" --port "${PORT:-8000}"
 fi
 
 exec "$@"

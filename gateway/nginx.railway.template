@@ -1,5 +1,6 @@
 server {
     listen ${PORT};
+    listen [::]:${PORT};
     server_name _;
     client_max_body_size 4m;
 
