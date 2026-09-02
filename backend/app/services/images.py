@@ -11,17 +11,32 @@ import json
 import re
 from collections.abc import Sequence
 from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
 from sqlalchemy.orm import Session
 
-from app.importers.catalogue import catalogue_dir
+from app.importers.paths import catalogue_dir
 from app.models.catalogue import DeepSkyObject
 
 _CAT_PREFIX = re.compile(r"^([A-Za-z]+)0*(\d+[A-Za-z]?)$")
 _MESSIER = re.compile(r"^m0*(\d+)$")
 
 Image = dict[str, str]
+
+
+def load_overlay_file(path: Path) -> tuple[dict[str, list[Image]], dict[str, str]]:
+    if not path.exists():
+        return {}, {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    bodies = data.get("bodies") or data.get("images") or {}
+    aliases = data.get("aliases") or {}
+    normalised: dict[str, list[Image]] = {}
+    for key, raw in bodies.items():
+        images = normalize_images(raw)
+        if images:
+            normalised[key] = images
+    return normalised, aliases
 
 
 @lru_cache(maxsize=1)
@@ -36,15 +51,11 @@ def _overlay() -> tuple[dict[str, list[Image]], dict[str, str]]:
         if not legacy.exists():
             return {}, {}
         path = legacy
-    data = json.loads(path.read_text(encoding="utf-8"))
-    bodies = data.get("bodies") or data.get("images") or {}
-    aliases = data.get("aliases") or {}
-    normalised: dict[str, list[Image]] = {}
-    for key, raw in bodies.items():
-        images = normalize_images(raw)
-        if images:
-            normalised[key] = images
-    return normalised, aliases
+    return load_overlay_file(path)
+
+
+def reload_overlay() -> None:
+    _overlay.cache_clear()
 
 
 def normalize_images(raw: Any) -> list[Image]:
@@ -91,13 +102,13 @@ def _variants(raw: str) -> list[str]:
     return keys
 
 
-def images_for(
+def lookup_images(
+    bodies: dict[str, list[Image]],
+    aliases: dict[str, str],
     *,
     object_id: str,
     catalogue_ids: Sequence[str] | None = None,
 ) -> list[Image]:
-    """Images from the bundled overlay (used at seed, and for planets/Moon)."""
-    bodies, aliases = _overlay()
     if not bodies:
         return []
     seen: set[str] = set()
@@ -115,11 +126,27 @@ def images_for(
     return []
 
 
-def apply_catalogue_images(db: Session) -> int:
+def images_for(
+    *,
+    object_id: str,
+    catalogue_ids: Sequence[str] | None = None,
+) -> list[Image]:
+    """Images from the bundled overlay (used at seed, and for planets/Moon)."""
+    bodies, aliases = _overlay()
+    return lookup_images(bodies, aliases, object_id=object_id, catalogue_ids=catalogue_ids)
+
+
+def apply_catalogue_images(db: Session, folder: Path | None = None) -> int:
     """Copy overlay images onto matching deep-sky rows."""
+    if folder is not None:
+        bodies, aliases = load_overlay_file(folder / "images.json")
+    else:
+        bodies, aliases = _overlay()
     updated = 0
     for obj in db.query(DeepSkyObject).yield_per(500):
-        found = images_for(object_id=obj.id, catalogue_ids=obj.catalogue_ids or [])
+        found = lookup_images(
+            bodies, aliases, object_id=obj.id, catalogue_ids=obj.catalogue_ids or []
+        )
         current = normalize_images(obj.images)
         if found and found != current:
             obj.images = found

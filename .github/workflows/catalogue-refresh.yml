@@ -1,0 +1,51 @@
+name: Catalogue refresh
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+      - name: Install httpx
+        run: pip install httpx
+      - name: Fetch OpenNGC CSVs
+        working-directory: backend
+        env:
+          PYTHONPATH: .
+        run: python -m app.importers.fetch_openngc
+      - name: Open a pull request if the catalogue changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: Update OpenNGC catalogue CSVs
+          title: Update OpenNGC catalogue
+          body: |
+            Monthly OpenNGC fetch from `mattiaverga/OpenNGC`.
+
+            The Messier list is closed; upstream usually ships a handful of
+            corrections and the occasional IC/addendum object. Merging this PR
+            updates the bundled CSVs. The next API start re-imports because the
+            catalogue digest changes.
+
+            This workflow does not query Wikipedia. To fill missing portraits
+            locally after merging:
+
+            ```bash
+            cd backend
+            python -m app.importers.refresh --no-fetch
+            ```
+          branch: chore/openngc-refresh
+          delete-branch: true
+          add-paths: |
+            data/catalogue/NGC.csv
+            data/catalogue/addendum.csv

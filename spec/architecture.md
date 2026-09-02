@@ -125,6 +125,11 @@ Persistent assessments are primarily for saved-location history.
 - metadata JSONB
 - images JSON list of field-guide photos (url, credit, licence, page, optional label). An object may have several.
 
+### CatalogueMeta
+- id (`bundle`)
+- digest of the bundled OpenNGC CSVs, bright-star list, and image overlay last applied to this database
+- updated_at
+
 ## Observing-window engine
 Input:
 - Latitude/longitude.

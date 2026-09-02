@@ -28,7 +28,7 @@ Documented here so the product can show and ship required credit. Check these be
 - Source: https://github.com/mattiaverga/OpenNGC (`database_files/NGC.csv` and `addendum.csv`)
 - Licence: Creative Commons Attribution-ShareAlike 4.0 (CC-BY-SA-4.0)
 - Shipped under `data/catalogue/` and imported into Postgres at seed time. Ranking uses a beginner-prior subset; object search covers the imported catalogue.
-- Importer: `backend/app/importers/openngc.py`.
+- Importer: `backend/app/importers/openngc.py`. Full refresh: `python -m app.importers.refresh`. A monthly GitHub Action fetches upstream CSVs; the next API start re-imports when the bundle digest changes.
 
 ## Wikimedia Commons (target portraits)
 - Thumbnails of Messier objects, named nebulae/clusters, major planets and the Moon.
