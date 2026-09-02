@@ -42,7 +42,7 @@ export default defineRailway((ctx) => {
   const backend = service("backend", {
     source: backendSource,
     build: backendBuild,
-    start: "uvicorn app.main:app --host 0.0.0.0 --port 8000",
+    start: "/app/entrypoint.sh uvicorn app.main:app --host 0.0.0.0 --port 8000",
     healthcheck: "/health",
     healthcheckTimeout: 600,
     env: appEnv,

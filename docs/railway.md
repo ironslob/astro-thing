@@ -8,7 +8,7 @@ Project: **shimmering-quietude**. Desired state lives in [`.railway/railway.ts`]
 | --- | --- | --- |
 | `gateway` | `gateway/Dockerfile` | Public HTTPS. Proxies `/` to `frontend` and `/api` + `/health` to `backend`. |
 | `frontend` | `frontend/Dockerfile` | Private. `VITE_API_BASE_URL=/api/v1`. Listens on `PORT`. |
-| `backend` | `backend/Dockerfile` (repo root context) | Private. Health check `/health`. Entrypoint runs `alembic upgrade head` then catalogue seed, and binds uvicorn to `$PORT`. Image includes `data/catalogue`. |
+| `backend` | `backend/Dockerfile` (repo root context) | Private. Health check `/health`. Start command runs `entrypoint.sh` (Alembic + catalogue seed, then uvicorn on `$PORT`). Image includes `data/catalogue`. |
 | `worker` | same image | `celery … worker` — entrypoint skips migrate/seed. |
 | `beat` | same image | `celery … beat` — entrypoint skips migrate/seed. |
 | `Postgres` | Railway plugin | `DATABASE_URL` is rewritten to `postgresql+psycopg://` in app config. |

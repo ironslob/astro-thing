@@ -21,8 +21,9 @@ if [ "$run_init" = 1 ]; then
   python -m app.importers.seed
 fi
 
-# Railway injects PORT but does not expand ${PORT:-8000} in start commands.
-# Ignore any --port the platform passed and bind the API ourselves.
+# Railway's start command replaces the image ENTRYPOINT. IaC therefore
+# invokes this script explicitly. Bind uvicorn to $PORT because the
+# platform does not expand ${PORT:-8000} in start commands.
 if [ "${1:-}" = "uvicorn" ]; then
   exec uvicorn app.main:app --host 0.0.0.0 --port "${PORT:-8000}"
 fi
