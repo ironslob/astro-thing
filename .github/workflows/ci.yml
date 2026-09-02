@@ -27,8 +27,13 @@ jobs:
         env:
           DATABASE_URL: sqlite+pysqlite:///./ci.db
           SECRET_KEY: ci-secret
-      - name: Alembic file present
-        run: test -f alembic/versions/001_initial.py
+      - name: Alembic schema matches ORM
+        run: |
+          alembic upgrade head
+          alembic check
+        env:
+          DATABASE_URL: sqlite+pysqlite:///./ci-migrate.db
+          SECRET_KEY: ci-secret
 
   frontend:
     runs-on: ubuntu-latest
