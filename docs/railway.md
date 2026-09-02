@@ -8,7 +8,7 @@ Project: **shimmering-quietude**. Desired state lives in [`.railway/railway.ts`]
 | --- | --- | --- |
 | `gateway` | `gateway/Dockerfile` | Public HTTPS. Proxies `/` to `frontend:8080` and `/api` + `/health` to `backend:8080`. |
 | `frontend` | `frontend/Dockerfile` | Private. `VITE_API_BASE_URL=/api/v1`. `PORT=8080` so the gateway can reference it. |
-| `backend` | `backend/Dockerfile` (repo root context) | Private. Health check `/health`. Start command runs `entrypoint.sh` (Alembic + catalogue seed, then uvicorn on `$PORT`). Image includes `data/catalogue`. `PORT=8080`. |
+| `backend` | `backend/Dockerfile` (repo root context) | Private. Health check `/health`. Start command runs `entrypoint.sh` (Alembic + catalogue seed) then `python -m app.run`, which binds `$PORT` on IPv4 and IPv6. Image includes `data/catalogue`. `PORT=8080`. |
 | `worker` | same image | `celery … worker` — entrypoint skips migrate/seed. |
 | `beat` | same image | `celery … beat` — entrypoint skips migrate/seed. |
 | `Postgres` | Railway plugin | `DATABASE_URL` is rewritten to `postgresql+psycopg://` in app config. |

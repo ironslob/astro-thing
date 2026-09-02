@@ -22,11 +22,10 @@ if [ "$run_init" = 1 ]; then
 fi
 
 # Railway's start command replaces the image ENTRYPOINT. IaC therefore
-# invokes this script explicitly. Bind uvicorn to $PORT because the
-# platform does not expand ${PORT:-8000} in start commands. UVICORN_HOST
-# defaults to 0.0.0.0 so Railway's IPv4 healthcheck can connect.
+# invokes this script explicitly. python -m app.run binds $PORT on IPv4
+# and IPv6 (platform healthcheck + private DNS).
 if [ "${1:-}" = "uvicorn" ]; then
-  exec uvicorn app.main:app --host "${UVICORN_HOST:-0.0.0.0}" --port "${PORT:-8000}"
+  exec python -m app.run
 fi
 
 exec "$@"
