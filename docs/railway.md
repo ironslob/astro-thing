@@ -6,7 +6,7 @@ Project: **shimmering-quietude**. Desired state lives in [`.railway/railway.ts`]
 
 | Railway service | Image / source | Notes |
 | --- | --- | --- |
-| `gateway` | `gateway/Dockerfile` | Public HTTPS. Proxies `/` to `frontend` and `/api` + `/health` to `backend`. |
+| `gateway` | `gateway/Dockerfile` | Public HTTPS. Proxies `/` to `frontend:80` and `/api` + `/health` to `backend:8000`. |
 | `frontend` | `frontend/Dockerfile` | Private. `VITE_API_BASE_URL=/api/v1`. Listens on `PORT`. |
 | `backend` | `backend/Dockerfile` (repo root context) | Private. Health check `/health`. Start command runs `entrypoint.sh` (Alembic + catalogue seed, then uvicorn on `$PORT`). Image includes `data/catalogue`. |
 | `worker` | same image | `celery … worker` — entrypoint skips migrate/seed. |

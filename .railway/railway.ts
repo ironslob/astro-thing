@@ -20,6 +20,7 @@ export default defineRailway((ctx) => {
     LOG_LEVEL: "INFO",
     SECRET_KEY: ctx.randomString("app-secret"),
     SCORING_VERSION: "1.0.0",
+    PORT: "8000",
     DATABASE_URL: db.env.DATABASE_URL,
     REDIS_URL: cache.env.REDIS_URL,
     CELERY_BROKER_URL: cache.env.REDIS_URL,
@@ -70,6 +71,7 @@ export default defineRailway((ctx) => {
       watchPatterns: ["frontend/**"],
     },
     env: {
+      PORT: "80",
       VITE_API_BASE_URL: "/api/v1",
     },
   });
@@ -84,8 +86,8 @@ export default defineRailway((ctx) => {
     healthcheck: "/health",
     healthcheckTimeout: 300,
     env: {
-      BACKEND_UPSTREAM: "http://${{backend.RAILWAY_PRIVATE_DOMAIN}}:${{backend.PORT}}",
-      FRONTEND_UPSTREAM: "http://${{frontend.RAILWAY_PRIVATE_DOMAIN}}:${{frontend.PORT}}",
+      BACKEND_UPSTREAM: "http://${{backend.RAILWAY_PRIVATE_DOMAIN}}:8000",
+      FRONTEND_UPSTREAM: "http://${{frontend.RAILWAY_PRIVATE_DOMAIN}}:80",
     },
   });
 
