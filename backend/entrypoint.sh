@@ -21,4 +21,11 @@ if [ "$run_init" = 1 ]; then
   python -m app.importers.seed
 fi
 
+# Railway's start command replaces the image ENTRYPOINT. IaC therefore
+# invokes this script explicitly. python -m app.run binds $PORT on IPv4
+# and IPv6 (platform healthcheck + private DNS).
+if [ "${1:-}" = "uvicorn" ]; then
+  exec python -m app.run
+fi
+
 exec "$@"

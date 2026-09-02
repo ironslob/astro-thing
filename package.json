@@ -1,0 +1,8 @@
+{
+  "name": "astro-window",
+  "private": true,
+  "description": "Railway IaC SDK for .railway/railway.ts",
+  "dependencies": {
+    "railway": "^3.11.0"
+  }
+}
