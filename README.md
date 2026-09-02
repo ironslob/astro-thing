@@ -55,6 +55,19 @@ celery -A app.celery_app.celery_app worker -l info
 celery -A app.celery_app.celery_app beat -l info
 ```
 
+## Database migrations
+
+SQLAlchemy models in `backend/app/models` are the schema source of truth. After changing models:
+
+```bash
+cd backend
+alembic revision --autogenerate -m "describe the model change"
+alembic upgrade head
+alembic check
+```
+
+Do not hand-write Alembic revision files.
+
 ## Tests
 
 No live weather, geocoding, or catalogue APIs. Fixtures and fakes only.
