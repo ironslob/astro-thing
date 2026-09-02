@@ -25,11 +25,16 @@ class Settings(BaseSettings):
 
     weather_provider: str = "open-meteo"
     open_meteo_base_url: str = "https://api.open-meteo.com"
+    open_meteo_geocoding_base_url: str = "https://geocoding-api.open-meteo.com"
+    postcodes_io_base_url: str = "https://api.postcodes.io"
     weather_cache_ttl_seconds: int = 1800
     weather_stale_ttl_seconds: int = 7200
     weather_request_timeout_seconds: float = 10.0
+    geocoding_request_timeout_seconds: float = 8.0
+    geocoding_cache_ttl_seconds: int = 86400
 
     forecast_rate_limit_per_minute: int = 60
+    geocoding_rate_limit_per_minute: int = 30
 
     timezone_default: str = "Europe/London"
 

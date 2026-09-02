@@ -36,6 +36,8 @@ UK_LON_MIN = -8.7
 UK_LON_MAX = 1.8
 
 MAJOR_PLANETS = ("mercury", "venus", "mars", "jupiter", "saturn")
+BEGINNER_RANK_MIN_PRIOR = 55
+CATALOGUE_RESEED_BELOW = 200
 
 DEFAULT_TIMEZONE = "Europe/London"
 

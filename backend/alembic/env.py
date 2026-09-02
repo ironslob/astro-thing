@@ -11,7 +11,6 @@ from app.models import (  # noqa: F401
     DeepSkyObject,
     ObservationAssessment,
     SavedLocation,
-    UkPlace,
     User,
     WeatherForecastCache,
 )

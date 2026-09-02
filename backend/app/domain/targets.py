@@ -43,6 +43,7 @@ class TargetCandidate:
 
 @dataclass
 class RankedTarget:
+    id: str
     name: str
     object_type: str
     friendly_type: str
@@ -200,6 +201,7 @@ def rank_targets(
             details["weather"] = weather_details
         ranked.append(
             RankedTarget(
+                id=cand.key,
                 name=cand.name,
                 object_type=cand.object_type,
                 friendly_type=cand.friendly_type,
@@ -215,3 +217,69 @@ def rank_targets(
             )
         )
     return ranked
+
+
+def unplaced_target(
+    candidate: TargetCandidate,
+    *,
+    moon_illumination: float,
+    weather_details: dict | None = None,
+    reason: str,
+) -> RankedTarget:
+    """A Poor card for a looked-up object that is not usefully placed."""
+    if candidate.samples:
+        peak = _peak(candidate.samples)
+        direction = (
+            "Below the horizon"
+            if peak.altitude < 0
+            else pointing_direction(peak.azimuth, peak.altitude)
+        )
+        details = {
+            "altitude_deg": round(peak.altitude, 1),
+            "azimuth_deg": round(peak.azimuth, 1),
+            "ra": candidate.ra,
+            "dec": candidate.dec,
+            "catalogue_ids": candidate.catalogue_ids,
+            "moon_separation_deg": (
+                None
+                if candidate.moon_separation_deg is None
+                else round(candidate.moon_separation_deg, 1)
+            ),
+            "moon_illumination": round(moon_illumination, 3),
+            "rise": candidate.rise.isoformat() if candidate.rise else None,
+            "set": candidate.set.isoformat() if candidate.set else None,
+            "transit": candidate.transit.isoformat() if candidate.transit else None,
+            "kind": candidate.kind,
+        }
+    else:
+        direction = "Not visible from here"
+        details = {
+            "altitude_deg": None,
+            "azimuth_deg": None,
+            "ra": candidate.ra,
+            "dec": candidate.dec,
+            "catalogue_ids": candidate.catalogue_ids,
+            "moon_separation_deg": candidate.moon_separation_deg,
+            "moon_illumination": round(moon_illumination, 3),
+            "rise": None,
+            "set": None,
+            "transit": None,
+            "kind": candidate.kind,
+        }
+    if weather_details:
+        details["weather"] = weather_details
+    return RankedTarget(
+        id=candidate.key,
+        name=candidate.name,
+        object_type=candidate.object_type,
+        friendly_type=candidate.friendly_type,
+        rating="Poor",
+        score=0.0,
+        direction=direction,
+        best_portion=None,
+        reason=reason,
+        featured=True,
+        details=details,
+        kind=candidate.kind,
+        catalogue_ids=candidate.catalogue_ids,
+    )

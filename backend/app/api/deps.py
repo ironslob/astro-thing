@@ -10,6 +10,9 @@ from app.core.config import settings
 from app.core.db import get_db
 from app.core.redis import get_redis
 from app.core.security import parse_session_token
+from app.geocoding.open_meteo import OpenMeteoGeocodingProvider
+from app.geocoding.postcodes_io import PostcodesIoProvider
+from app.geocoding.service import GeocodingService
 from app.models.user import User
 from app.services.locations import is_uk
 from app.weather.cache import WeatherCacheService
@@ -18,16 +21,27 @@ from app.weather.open_meteo import OpenMeteoWeatherProvider
 DbDep = Annotated[Session, Depends(get_db)]
 
 
-def get_weather_cache(db: DbDep) -> WeatherCacheService:
-    redis_client = None
+def _optional_redis():
     try:
         client = get_redis()
         client.ping()
-        redis_client = client
+        return client
     except Exception:
-        redis_client = None
+        return None
+
+
+def get_weather_cache(db: DbDep) -> WeatherCacheService:
     return WeatherCacheService(
-        db=db, provider=OpenMeteoWeatherProvider(), redis_client=redis_client
+        db=db, provider=OpenMeteoWeatherProvider(), redis_client=_optional_redis()
+    )
+
+
+def get_geocoding_service() -> GeocodingService:
+    redis_client = _optional_redis()
+    return GeocodingService(
+        places=OpenMeteoGeocodingProvider(),
+        postcodes=PostcodesIoProvider(),
+        redis_client=redis_client,
     )
 
 

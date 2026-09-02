@@ -25,6 +25,7 @@ vi.mock("../api/client", () => ({
     windows: () => new Promise(() => {}),
     targets: () => new Promise(() => {}),
     searchPlaces: () => new Promise(() => {}),
+    searchCatalogue: () => new Promise(() => {}),
     me: () => Promise.resolve({ user: null }),
     listLocations: () => new Promise(() => {}),
   },
@@ -56,6 +57,7 @@ const sampleWindow: WindowCard = {
 };
 
 const sampleTarget: TargetCard = {
+  id: "ngc-224",
   name: "Andromeda Galaxy",
   object_type: "Galaxy",
   rating: "Excellent",
@@ -159,3 +161,14 @@ test("home search shows a skeleton while places load", async () => {
   await user.type(screen.getByLabelText(/uk place or postcode/i), "Ho");
   expect(await screen.findByTestId("search-skeleton")).toBeInTheDocument();
 });
+
+test("targets search shows a skeleton while catalogue loads", async () => {
+  const user = userEvent.setup();
+  wrap(
+    <TargetsPage />,
+    "/targets?lat=50.8279&lon=-0.1688&name=Hove&start=2026-01-15T21:30:00Z&end=2026-01-16T00:30:00Z&label=Tonight",
+  );
+  await user.type(screen.getByLabelText(/looking for something specific/i), "And");
+  expect(await screen.findByTestId("search-skeleton")).toBeInTheDocument();
+});
+

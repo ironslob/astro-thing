@@ -2,11 +2,13 @@ from __future__ import annotations
 
 import logging
 
+from sqlalchemy import delete
+
 from app.core.db import SessionLocal
-from app.importers.catalogue import import_catalogue
-from app.importers.places import import_places
+from app.domain.constants import CATALOGUE_RESEED_BELOW
+from app.importers.catalogue import import_bright_stars
+from app.importers.openngc import import_openngc
 from app.models.catalogue import DeepSkyObject
-from app.models.place import UkPlace
 
 logger = logging.getLogger(__name__)
 
@@ -15,13 +17,13 @@ def seed_if_needed() -> None:
     db = SessionLocal()
     try:
         dso_count = db.query(DeepSkyObject).count()
-        if dso_count == 0:
-            n = import_catalogue(db)
-            logger.info("imported_catalogue n=%s", n)
-        place_count = db.query(UkPlace).count()
-        if place_count == 0:
-            n = import_places(db)
-            logger.info("imported_places n=%s", n)
+        if dso_count < CATALOGUE_RESEED_BELOW:
+            if dso_count:
+                db.execute(delete(DeepSkyObject))
+                db.commit()
+            n = import_openngc(db)
+            stars = import_bright_stars(db)
+            logger.info("imported_catalogue n=%s bright_stars=%s", n, stars)
     finally:
         db.close()
 

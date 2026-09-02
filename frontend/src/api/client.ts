@@ -1,4 +1,5 @@
 import type {
+  CatalogueMatch,
   PlaceMatch,
   SavedLocation,
   TargetsResponse,
@@ -41,12 +42,20 @@ export class ApiError extends Error {
 export const api = {
   searchPlaces: (q: string) =>
     request<{ results: PlaceMatch[] }>(`/locations/search?q=${encodeURIComponent(q)}`),
+  searchCatalogue: (q: string) =>
+    request<{ results: CatalogueMatch[] }>(`/catalogue/search?q=${encodeURIComponent(q)}`),
   windows: (lat: number, lon: number) =>
     request<WindowsResponse>(`/forecast/windows?lat=${lat}&lon=${lon}`),
-  targets: (lat: number, lon: number, start: string, end: string) =>
-    request<TargetsResponse>(
-      `/forecast/targets?lat=${lat}&lon=${lon}&start=${encodeURIComponent(start)}&end=${encodeURIComponent(end)}`,
-    ),
+  targets: (lat: number, lon: number, start: string, end: string, objectId?: string) => {
+    const params = new URLSearchParams({
+      lat: String(lat),
+      lon: String(lon),
+      start,
+      end,
+    });
+    if (objectId) params.set("object", objectId);
+    return request<TargetsResponse>(`/forecast/targets?${params.toString()}`);
+  },
   me: () => request<{ user: User | null }>("/me"),
   requestMagicLink: (email: string) =>
     request<{ ok: boolean; message: string }>("/auth/magic-link", {

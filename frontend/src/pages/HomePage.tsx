@@ -4,13 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../api/client";
 import type { PlaceMatch } from "../api/types";
 import { HOVE } from "../lib/demo";
-import { SearchSkeleton } from "../components/LoadingState";
+import { useDebouncedValue } from "../lib/debounce";
+import { Typeahead } from "../components/Typeahead";
 
 export function HomePage() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [geoState, setGeoState] = useState<"idle" | "asking" | "denied">("idle");
-  const delayed = query.trim().length >= 2 ? query.trim() : "";
+  const trimmed = query.trim();
+  const delayed = useDebouncedValue(trimmed, 300);
+  const waiting = trimmed.length >= 2 && trimmed !== delayed;
   const search = useQuery({
     queryKey: ["places", delayed],
     queryFn: () => api.searchPlaces(delayed),
@@ -74,13 +77,24 @@ export function HomePage() {
         </p>
       )}
 
-      <LocationSearch
+      <Typeahead
+        inputId="place"
+        label="Or search a UK place or postcode"
+        placeholder="Hove, Manchester, BN3…"
         query={query}
         onQuery={setQuery}
         results={search.data?.results ?? []}
-        loading={search.isFetching}
+        loading={waiting || search.isFetching}
+        getKey={(p: PlaceMatch) => `${p.display_name}-${p.latitude}-${p.longitude}`}
+        getLabel={(p: PlaceMatch) => p.display_name}
         onPick={(p) => go({ name: p.display_name, lat: p.latitude, lon: p.longitude })}
       />
+
+      {search.isError && delayed.length >= 2 && !waiting && (
+        <p className="text-sm text-cream-dim" role="status">
+          We couldn't look up that place just now. Please try again.
+        </p>
+      )}
 
       <button
         type="button"
@@ -90,51 +104,5 @@ export function HomePage() {
         Try Brighton & Hove
       </button>
     </main>
-  );
-}
-
-export function LocationSearch({
-  query,
-  onQuery,
-  results,
-  loading,
-  onPick,
-}: {
-  query: string;
-  onQuery: (v: string) => void;
-  results: PlaceMatch[];
-  loading: boolean;
-  onPick: (place: PlaceMatch) => void;
-}) {
-  return (
-    <div>
-      <label htmlFor="place" className="text-sm text-cream-dim">
-        Or search a UK place or postcode
-      </label>
-      <input
-        id="place"
-        value={query}
-        onChange={(e) => onQuery(e.target.value)}
-        placeholder="Hove, Manchester, BN3…"
-        className="mt-2 min-h-12 w-full rounded-2xl border border-white/10 bg-night-raised px-4 py-3 text-base outline-none ring-amber focus:ring-2"
-        autoComplete="off"
-      />
-      {loading && <SearchSkeleton />}
-      {!loading && results.length > 0 && (
-        <ul className="mt-2 overflow-hidden rounded-2xl bg-night-card">
-          {results.map((r) => (
-            <li key={`${r.display_name}-${r.latitude}`}>
-              <button
-                type="button"
-                className="min-h-12 w-full px-4 py-3 text-left hover:bg-white/5"
-                onClick={() => onPick(r)}
-              >
-                {r.display_name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
   );
 }

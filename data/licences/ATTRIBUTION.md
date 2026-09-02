@@ -9,23 +9,30 @@ Documented here so the product can show and ship required credit. Check these be
 - Attribution shown in the app footer and in technical details: “Weather: Open-Meteo”.
 - Model selection (including UK Met Office where offered) is an implementation detail behind `WeatherProvider`.
 
-## OpenNGC (deep-sky catalogue)
-- Source: https://github.com/mattiaverga/OpenNGC
-- Licence: Creative Commons Attribution-ShareAlike 4.0 (CC-BY-SA-4.0)
-- V1 ships a curated beginner subset in `data/catalogue/beginner_dsos.json`.
-- A separate importer (`backend/app/importers/openngc.py`) can upsert from an OpenNGC CSV if you add it under `data/catalogue/`.
+## Open-Meteo Geocoding (place search)
+- Site: https://open-meteo.com/en/docs/geocoding-api
+- Location data based on GeoNames (CC-BY 4.0): https://www.geonames.org/
+- Used at request time for UK place-name autocomplete (`countryCode=GB`), cached in Redis.
+- Attribution: “Places: Open-Meteo Geocoding (GeoNames, CC-BY 4.0)”.
 
-## GeoNames (UK places)
-- Source: https://www.geonames.org/
-- Dump: http://download.geonames.org/export/dump/
-- Licence: Creative Commons Attribution 4.0 (CC-BY 4.0)
-- Bundled as `data/places/uk_places.json` (GB populated places, filtered).
-
-## UK postcode districts (outcodes)
-- Derived from publicly available postcode-district centroid data (Doogal / OS OpenData lineage).
+## postcodes.io (UK postcodes)
+- Site: https://postcodes.io/
+- API source code: MIT.
+- Great Britain postcode data: OS OpenData / OGL.
 - Contains OS data © Crown copyright and database right.
-- Contains public sector information licensed under the Open Government Licence v3.0.
-- Bundled as `data/places/uk_outcodes.json`. Full unit-level postcodes are not shipped; `BN3 2AB` resolves via the `BN3` district.
+- Contains Royal Mail data © Royal Mail copyright and database right.
+- Northern Ireland (`BT`) postcodes: non-commercial use of ONSPD is free; commercial use needs a licence from Land & Property Services.
+- Used at request time for strict UK postcode/outcode queries, cached in Redis.
+
+## OpenNGC (deep-sky catalogue)
+- Source: https://github.com/mattiaverga/OpenNGC (`database_files/NGC.csv` and `addendum.csv`)
+- Licence: Creative Commons Attribution-ShareAlike 4.0 (CC-BY-SA-4.0)
+- Shipped under `data/catalogue/` and imported into Postgres at seed time. Ranking uses a beginner-prior subset; object search covers the imported catalogue.
+- Importer: `backend/app/importers/openngc.py`.
+
+## Bright named stars
+- Small bundled list in `data/catalogue/bright_stars.json` with public J2000 coordinates (Yale Bright Star Catalogue / IAU common names).
+- Not a live SIMBAD lookup.
 
 ## Astropy
 - Used for local astronomical calculations.
