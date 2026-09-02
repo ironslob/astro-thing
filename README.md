@@ -22,7 +22,7 @@ Compose images: PostgreSQL 18, Redis 8, nginx 1.30, Mailpit, Python 3.14, Node 2
 - Or search `Hove`, `Brighton`, or a postcode such as `BN3 2AB`.
 - Magic-link emails appear in Mailpit: [http://localhost:8025](http://localhost:8025).
 
-The first backend start runs migrations and imports the OpenNGC catalogue plus bright named stars.
+The first **API** container start runs migrations and imports the OpenNGC catalogue plus bright named stars. Celery worker and beat skip that and wait until the API is healthy.
 
 Location search uses live Open-Meteo Geocoding (place names) and postcodes.io (UK postcodes), cached in Redis. This is a documented exception to the spec preference for a bundled UK place dataset. Browser geolocation still does not call a geocoder.
 
