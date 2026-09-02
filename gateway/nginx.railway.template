@@ -7,7 +7,7 @@ server {
 
     location /health {
         set $backend_upstream ${BACKEND_UPSTREAM};
-        proxy_pass $backend_upstream/health;
+        proxy_pass $backend_upstream;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Request-Id $request_id;
@@ -17,7 +17,7 @@ server {
 
     location /api/ {
         set $backend_upstream ${BACKEND_UPSTREAM};
-        proxy_pass $backend_upstream/api/;
+        proxy_pass $backend_upstream;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header Cookie $http_cookie;
