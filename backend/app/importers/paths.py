@@ -19,7 +19,7 @@ DEFAULT_OPENNGC_ADDENDUM_URL = (
 
 
 def repo_catalogue_dir() -> Path:
-    """Catalogue files in this repo (writable on the host / in CI)."""
+    """Catalogue files in this repo (writable on the host)."""
     return Path(__file__).resolve().parents[3] / "data" / "catalogue"
 
 

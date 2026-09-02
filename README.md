@@ -108,9 +108,9 @@ See [`.env.example`](.env.example). Important keys:
 
 Deep-sky objects are bundled from OpenNGC (`data/catalogue/NGC.csv` and `addendum.csv`) plus `bright_stars.json`. Image links live on each catalogue row (`deep_sky_objects.images`), filled from `data/catalogue/images.json`. Objects can have more than one photo. Auto-rank uses objects with a beginner prior of 55 or higher (Andromeda, Orion Nebula, Pleiades, and other northern beginner targets still lead).
 
-OpenNGC does not add objects often — a few corrections a year, plus the occasional IC or addendum row. The Messier list is closed. A monthly GitHub Action (`catalogue-refresh.yml`) fetches the upstream CSVs and opens a PR when they change.
+OpenNGC does not add objects often — a few corrections a year, plus the occasional IC or addendum row. The Messier list is closed. Stay current by running the refresh command locally, committing any file changes, and opening a normal PR. GitHub Actions are for code CI only; they do not fetch catalogue data.
 
-Startup re-imports whenever the digest of those bundled files differs from the last successful import, so merging a catalogue PR updates the database on the next API start. Until that digest changes, startup is a no-op.
+Startup re-imports whenever the digest of those bundled files differs from the last successful import, so merging updated CSVs or `images.json` updates the database on the next API start. Until that digest changes, startup is a no-op.
 
 To fetch OpenNGC, rebuild Messier aliases, fill **missing** Wikimedia portraits (existing extras such as H-alpha are left alone), and apply the bundle to the database:
 
@@ -124,7 +124,7 @@ Run this on the host, not inside the API container: Compose mounts `./data` read
 | Flag | Effect |
 | --- | --- |
 | `--no-fetch` | Use the CSVs already in the repo |
-| `--no-fill-images` | Do not call Wikipedia (CI uses this) |
+| `--no-fill-images` | Do not call Wikipedia |
 | `--no-apply-db` | Only update files, do not touch the database |
 | `--force-db` | Re-import even if the bundle digest is unchanged |
 

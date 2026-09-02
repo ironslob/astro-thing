@@ -1,8 +1,9 @@
 """Full catalogue refresh: fetch OpenNGC, update related overlay data, apply to the DB.
 
 OpenNGC changes a few times a year (corrections and the occasional IC/addendum
-object; the Messier list is closed). Run this on the host or in CI — Docker
-mounts `data/` read-only, so fetches must write the repo files, not the container.
+object; the Messier list is closed). Run this on the host and commit any file
+changes — Docker mounts `data/` read-only, so fetches must write the repo files,
+not the container. GitHub Actions do not run this.
 
 Examples:
     python -m app.importers.refresh
