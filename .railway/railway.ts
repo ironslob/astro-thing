@@ -42,9 +42,9 @@ export default defineRailway((ctx) => {
   const backend = service("backend", {
     source: backendSource,
     build: backendBuild,
-    start: "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}",
+    start: "uvicorn app.main:app --host 0.0.0.0 --port 8000",
     healthcheck: "/health",
-    healthcheckTimeout: 300,
+    healthcheckTimeout: 600,
     env: appEnv,
   });
 
@@ -66,6 +66,7 @@ export default defineRailway((ctx) => {
     source: github(REPO, { branch: BRANCH, rootDirectory: "frontend" }),
     build: {
       builder: "DOCKERFILE",
+      dockerfilePath: "Dockerfile",
       watchPatterns: ["frontend/**"],
     },
     env: {
@@ -77,6 +78,7 @@ export default defineRailway((ctx) => {
     source: github(REPO, { branch: BRANCH, rootDirectory: "gateway" }),
     build: {
       builder: "DOCKERFILE",
+      dockerfilePath: "Dockerfile",
       watchPatterns: ["gateway/**"],
     },
     healthcheck: "/health",
