@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from app.astronomy.service import PLANET_LABELS
 from app.domain.constants import MAJOR_PLANETS
 from app.models.catalogue import DeepSkyObject
+from app.services.images import images_for, normalize_images
 from app.services.locations import normalize_query
-from app.services.portraits import portrait_for
 
 SOLAR_SYSTEM: list[dict] = [
     {
@@ -35,7 +35,7 @@ def search_catalogue(db: Session, q: str, limit: int = 8) -> list[dict]:
     for item in SOLAR_SYSTEM:
         hay = f"{item['id']} {item['display_name']}".lower()
         if needle in hay:
-            results.append(_with_portrait(item))
+            results.append(_with_images(item))
             seen.add(item["id"])
     rows = (
         db.query(DeepSkyObject)
@@ -48,12 +48,13 @@ def search_catalogue(db: Session, q: str, limit: int = 8) -> list[dict]:
         if obj.id in seen:
             continue
         results.append(
-            _with_portrait(
+            _with_images(
                 {
                     "id": obj.id,
                     "display_name": obj.common_name or obj.primary_name,
                     "friendly_type": obj.friendly_type,
                     "catalogue_ids": list(obj.catalogue_ids or []),
+                    "images": normalize_images(obj.images),
                 }
             )
         )
@@ -63,10 +64,12 @@ def search_catalogue(db: Session, q: str, limit: int = 8) -> list[dict]:
     return results[:limit]
 
 
-def _with_portrait(item: dict) -> dict:
+def _with_images(item: dict) -> dict:
+    stored = normalize_images(item.get("images"))
     return {
         **item,
-        "image": portrait_for(
+        "images": stored
+        or images_for(
             object_id=item["id"],
             catalogue_ids=item.get("catalogue_ids") or [],
         ),

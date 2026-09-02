@@ -32,9 +32,9 @@ Documented here so the product can show and ship required credit. Check these be
 
 ## Wikimedia Commons (target portraits)
 - Thumbnails of Messier objects, named nebulae/clusters, major planets and the Moon.
-- Stored as a static map in `data/catalogue/portraits.json` (Wikimedia file URLs, author, licence).
+- Stored as a multi-image overlay in `data/catalogue/images.json` and copied onto `deep_sky_objects.images` at seed time. Each object can hold several photos (portrait, wide field, alternate processing, and so on).
 - Shown on target cards and catalogue search; not fetched from Wikipedia at request time.
-- Licences vary by image (often CC BY / CC BY-SA / CC0 / public domain). Each card credits the author.
+- Licences vary by image (often CC BY / CC BY-SA / CC0 / public domain). Each card credits the author of the visible photo.
 - Attribution in the app footer: “Target photos: Wikimedia Commons”.
 
 ## Bright named stars

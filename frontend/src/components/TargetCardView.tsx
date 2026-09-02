@@ -15,7 +15,7 @@ export function TargetCardView({
   return (
     <article className="overflow-hidden rounded-3xl bg-night-card shadow-card">
       <TargetPortrait
-        image={target.image}
+        images={target.images}
         name={target.name}
         objectType={target.object_type}
         kind={target.kind}

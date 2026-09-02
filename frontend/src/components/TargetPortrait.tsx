@@ -28,36 +28,47 @@ function plateClass(kind: string, objectType: string) {
 }
 
 export function TargetPortrait({
-  image,
+  images = [],
   name,
   objectType,
   kind,
   featured = false,
 }: {
-  image?: TargetImage | null;
+  images?: TargetImage[];
   name: string;
   objectType: string;
   kind: string;
   featured?: boolean;
 }) {
-  const [failed, setFailed] = useState(false);
-  const url = image?.url;
-  const showPhoto = Boolean(url) && !failed;
+  const photos = images.filter((item) => item.url);
+  const [index, setIndex] = useState(0);
+  const [failed, setFailed] = useState<Record<number, boolean>>({});
+  const current = photos[index];
+  const showPhoto = Boolean(current?.url) && !failed[index];
   const height = featured ? "h-52 sm:h-64 md:h-80" : "h-40";
+  const many = photos.length > 1;
+  const captionBits = [current?.label, current ? `${current.credit} · ${current.license}` : ""]
+    .filter(Boolean)
+    .join(" · ");
+
+  const go = (delta: number) => {
+    if (!photos.length) return;
+    setIndex((i) => (i + delta + photos.length) % photos.length);
+  };
 
   return (
     <figure>
       <div className={`relative overflow-hidden bg-night-deep ${height}`}>
-        {showPhoto && url ? (
+        {showPhoto && current ? (
           <img
-            src={url}
-            alt={name}
+            src={current.url}
+            alt={current.label ? `${name}, ${current.label}` : name}
             width={960}
             height={featured ? 480 : 400}
             loading={featured ? "eager" : "lazy"}
             decoding="async"
             className="h-full w-full object-cover object-center"
-            onError={() => setFailed(true)}
+            onError={() => setFailed((prev) => ({ ...prev, [index]: true }))}
           />
         ) : (
           <div
@@ -66,21 +77,44 @@ export function TargetPortrait({
             data-testid="target-portrait-fallback"
           />
         )}
+        {many && (
+          <div className="absolute inset-x-0 bottom-2 flex items-center justify-between px-2">
+            <button
+              type="button"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-night/80 text-lg text-cream hover:bg-night"
+              aria-label="Previous photo"
+              onClick={() => go(-1)}
+            >
+              ‹
+            </button>
+            <p className="rounded-full bg-night/80 px-3 py-1 text-xs text-cream" aria-live="polite">
+              {index + 1} of {photos.length}
+            </p>
+            <button
+              type="button"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-night/80 text-lg text-cream hover:bg-night"
+              aria-label="Next photo"
+              onClick={() => go(1)}
+            >
+              ›
+            </button>
+          </div>
+        )}
       </div>
-      {showPhoto && image && (
+      {showPhoto && current && (
         <figcaption className={`pt-2 text-xs text-cream-dim ${featured ? "px-5 md:px-8" : "px-5"}`}>
-          {image.page ? (
+          {current.page ? (
             <a
-              href={image.page}
+              href={current.page}
               className="hover:text-cream hover:underline"
               target="_blank"
               rel="noreferrer"
             >
-              Photo: {image.credit} · {image.license}
+              Photo: {captionBits}
             </a>
           ) : (
             <span>
-              Photo: {image.credit} · {image.license}
+              Photo: {captionBits}
             </span>
           )}
         </figcaption>

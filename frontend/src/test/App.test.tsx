@@ -66,12 +66,22 @@ const sampleTarget: TargetCard = {
   reason: "A strong target for most of this window.",
   featured: true,
   kind: "dso",
-  image: {
-    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Andromeda_Galaxy_2025.png/960px-Andromeda_Galaxy_2025.png",
-    credit: "Brody Wesner",
-    license: "CC0",
-    page: "https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_2025.png",
-  },
+  images: [
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Andromeda_Galaxy_2025.png/960px-Andromeda_Galaxy_2025.png",
+      credit: "Brody Wesner",
+      license: "CC0",
+      page: "https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_2025.png",
+      label: "Portrait",
+    },
+    {
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Andromeda_Galaxy_%28with_h-alpha%29.jpg/960px-Andromeda_Galaxy_%28with_h-alpha%29.jpg",
+      credit: "Adam Evans",
+      license: "CC BY 2.0",
+      page: "https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_(with_h-alpha).jpg",
+      label: "H-alpha",
+    },
+  ],
   details: {
     altitude_deg: 48,
     azimuth_deg: 42,
@@ -112,15 +122,26 @@ test("target details are collapsed by default", async () => {
   expect(screen.getByRole("img", { name: /andromeda galaxy/i })).toBeInTheDocument();
   expect(screen.getByText(/brody wesner/i)).toBeInTheDocument();
   expect(screen.getByText(/northeast/i)).toBeInTheDocument();
+  expect(screen.getByText("1 of 2")).toBeInTheDocument();
   expect(screen.queryByText(/Altitude/)).not.toBeInTheDocument();
   await user.click(screen.getByRole("button", { name: /details/i }));
   expect(screen.getByText("Altitude")).toBeInTheDocument();
 });
 
 test("target card without a photo still shows a plate", () => {
-  wrap(<TargetCardView target={{ ...sampleTarget, image: null }} />);
+  wrap(<TargetCardView target={{ ...sampleTarget, images: [] }} />);
   expect(screen.getByTestId("target-portrait-fallback")).toBeInTheDocument();
   expect(screen.queryByRole("img")).not.toBeInTheDocument();
+});
+
+test("target card can step through multiple photos", async () => {
+  const user = userEvent.setup();
+  wrap(<TargetCardView target={sampleTarget} featured />);
+  expect(screen.getByRole("img", { name: /portrait/i })).toBeInTheDocument();
+  await user.click(screen.getByRole("button", { name: /next photo/i }));
+  expect(screen.getByRole("img", { name: /h-alpha/i })).toBeInTheDocument();
+  expect(screen.getByText(/adam evans/i)).toBeInTheDocument();
+  expect(screen.getByText("2 of 2")).toBeInTheDocument();
 });
 
 test("save prompt appears after forecast value", () => {

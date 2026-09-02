@@ -9,6 +9,7 @@ from app.domain.constants import CATALOGUE_RESEED_BELOW
 from app.importers.catalogue import import_bright_stars
 from app.importers.openngc import import_openngc
 from app.models.catalogue import DeepSkyObject
+from app.services.images import apply_catalogue_images
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,9 @@ def seed_if_needed() -> None:
             n = import_openngc(db)
             stars = import_bright_stars(db)
             logger.info("imported_catalogue n=%s bright_stars=%s", n, stars)
+        images = apply_catalogue_images(db)
+        if images:
+            logger.info("applied_catalogue_images n=%s", images)
     finally:
         db.close()
 

@@ -123,6 +123,7 @@ Persistent assessments are primarily for saved-location history.
 - magnitude nullable
 - angular_size nullable
 - metadata JSONB
+- images JSON list of field-guide photos (url, credit, licence, page, optional label). An object may have several.
 
 ## Observing-window engine
 Input:

@@ -12,6 +12,7 @@ export type TargetImage = {
   credit: string;
   license: string;
   page: string;
+  label?: string;
 };
 
 export type CatalogueMatch = {
@@ -19,7 +20,7 @@ export type CatalogueMatch = {
   display_name: string;
   friendly_type: string;
   catalogue_ids: string[];
-  image?: TargetImage | null;
+  images?: TargetImage[];
 };
 
 export type WindowCard = {
@@ -69,7 +70,7 @@ export type TargetCard = {
   featured: boolean;
   kind: string;
   details: TargetDetails;
-  image?: TargetImage | null;
+  images?: TargetImage[];
 };
 
 export type TargetsResponse = {

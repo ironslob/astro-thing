@@ -194,12 +194,12 @@ def test_catalogue_search(client: TestClient) -> None:
     ids = [x["id"] for x in r.json()["results"]]
     assert "ngc-224" in ids
     andromeda = next(x for x in r.json()["results"] if x["id"] == "ngc-224")
-    assert andromeda["image"]["url"].startswith("https://upload.wikimedia.org/")
+    assert andromeda["images"][0]["url"].startswith("https://upload.wikimedia.org/")
     r = client.get("/api/v1/catalogue/search", params={"q": "Pleiades"})
     assert any(x["id"] == "mel-22" for x in r.json()["results"])
     r = client.get("/api/v1/catalogue/search", params={"q": "Venus"})
     venus = next(x for x in r.json()["results"] if x["id"] == "venus")
-    assert venus["image"]["url"]
+    assert venus["images"][0]["url"]
 
 
 def test_windows_anonymous_and_single_provider_call(client: TestClient) -> None:
@@ -246,7 +246,7 @@ def test_targets_rank_beginner_objects_and_pin(client: TestClient) -> None:
     names = [t["id"] for t in pinned.json()["targets"]]
     assert names[0] == "ngc-9999"
     assert names.count("ngc-9999") == 1
-    assert pinned.json()["targets"][0]["image"] is None
+    assert pinned.json()["targets"][0]["images"] == []
 
     andromeda = client.get(
         "/api/v1/forecast/targets",
@@ -261,8 +261,9 @@ def test_targets_rank_beginner_objects_and_pin(client: TestClient) -> None:
     assert andromeda.status_code == 200
     lead = andromeda.json()["targets"][0]
     assert lead["id"] == "ngc-224"
-    assert lead["image"]["url"].startswith("https://upload.wikimedia.org/")
-    assert lead["image"]["credit"]
+    assert len(lead["images"]) >= 2
+    assert lead["images"][0]["url"].startswith("https://upload.wikimedia.org/")
+    assert lead["images"][0]["credit"]
 
     planet = client.get(
         "/api/v1/forecast/targets",

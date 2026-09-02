@@ -56,6 +56,8 @@ def _upsert_row(db: Session, row: dict) -> int:
         "search_text": build_search_text(primary, common, ids),
         "extra": row.get("metadata") or {},
     }
+    if "images" in row:
+        payload["images"] = list(row.get("images") or [])
     existing = db.get(DeepSkyObject, ident)
     if existing is None:
         db.add(DeepSkyObject(id=ident, **payload))
