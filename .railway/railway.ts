@@ -21,7 +21,6 @@ export default defineRailway((ctx) => {
     SECRET_KEY: ctx.randomString("app-secret"),
     SCORING_VERSION: "1.0.0",
     PORT: "8080",
-    UVICORN_HOST: "::",
     DATABASE_URL: db.env.DATABASE_URL,
     REDIS_URL: cache.env.REDIS_URL,
     CELERY_BROKER_URL: cache.env.REDIS_URL,
@@ -44,7 +43,7 @@ export default defineRailway((ctx) => {
   const backend = service("backend", {
     source: backendSource,
     build: backendBuild,
-    start: "/app/entrypoint.sh uvicorn app.main:app --host :: --port 8080",
+    start: "/app/entrypoint.sh uvicorn app.main:app --host 0.0.0.0 --port 8080",
     healthcheck: "/health",
     healthcheckTimeout: 600,
     env: appEnv,

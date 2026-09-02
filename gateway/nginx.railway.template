@@ -1,11 +1,13 @@
 server {
     listen ${PORT};
-    listen [::]:${PORT};
+    listen [::]:${PORT} ipv6only=on;
     server_name _;
     client_max_body_size 4m;
+    resolver ${RESOLVER} valid=10s ipv6=on;
 
     location /health {
-        proxy_pass ${BACKEND_UPSTREAM}/health;
+        set $backend_upstream ${BACKEND_UPSTREAM};
+        proxy_pass $backend_upstream/health;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Request-Id $request_id;
@@ -14,7 +16,8 @@ server {
     }
 
     location /api/ {
-        proxy_pass ${BACKEND_UPSTREAM}/api/;
+        set $backend_upstream ${BACKEND_UPSTREAM};
+        proxy_pass $backend_upstream/api/;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header Cookie $http_cookie;
@@ -25,7 +28,8 @@ server {
     }
 
     location / {
-        proxy_pass ${FRONTEND_UPSTREAM};
+        set $frontend_upstream ${FRONTEND_UPSTREAM};
+        proxy_pass $frontend_upstream;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
