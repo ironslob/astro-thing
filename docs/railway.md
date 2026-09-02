@@ -6,7 +6,7 @@ Project: **shimmering-quietude**. Desired state lives in [`.railway/railway.ts`]
 
 | Railway service | Image / source | Notes |
 | --- | --- | --- |
-| `gateway` | `gateway/Dockerfile` | Public HTTPS. Proxies `/` to `frontend:8080` and `/api` + `/health` to `backend:8080`. |
+| `gateway` | `gateway/Dockerfile` | Public HTTPS. Proxies `/` to `frontend:8080` and `/api` + `/health` to `backend:8080`. Re-resolves private DNS at request time so a frontend restart does not leave a stale upstream IP. |
 | `frontend` | `frontend/Dockerfile` | Private. `VITE_API_BASE_URL=/api/v1`. `PORT=8080` so the gateway can reference it. |
 | `backend` | `backend/Dockerfile` (repo root context) | Private. Health check `/health`. Start command runs `entrypoint.sh` (Alembic + catalogue seed) then `python -m app.run`, which binds `$PORT` on IPv4 and IPv6. Image includes `data/catalogue`. `PORT=8080`. |
 | `worker` | same image | `celery … worker` — entrypoint skips migrate/seed. |
