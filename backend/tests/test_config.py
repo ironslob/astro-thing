@@ -3,7 +3,7 @@ from __future__ import annotations
 import socket
 
 from app.core.config import sqlalchemy_database_url
-from app.run import bind_dualstack
+from app.run import bind_sockets
 
 
 def test_sqlalchemy_database_url_rewrites_railway_postgres() -> None:
@@ -24,11 +24,21 @@ def test_sqlalchemy_database_url_leaves_sqlite_and_psycopg_alone() -> None:
     assert sqlalchemy_database_url(already) == already
 
 
-def test_bind_dualstack_accepts_ipv4() -> None:
-    sock = bind_dualstack(0)
+def test_bind_sockets_accept_ipv4_and_ipv6() -> None:
+    port = 0
+    # Port 0 cannot be shared across two sockets; pick one free port.
+    probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    probe.bind(("127.0.0.1", 0))
+    port = probe.getsockname()[1]
+    probe.close()
+    sockets = bind_sockets(port)
     try:
-        port = sock.getsockname()[1]
         with socket.create_connection(("127.0.0.1", port), timeout=1) as client:
             assert client.getpeername()[1] == port
+        with socket.socket(socket.AF_INET6, socket.SOCK_STREAM) as client:
+            client.settimeout(1)
+            client.connect(("::1", port))
+            assert client.getpeername()[1] == port
     finally:
-        sock.close()
+        for sock in sockets:
+            sock.close()
