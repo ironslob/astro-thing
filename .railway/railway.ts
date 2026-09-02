@@ -21,6 +21,7 @@ export default defineRailway((ctx) => {
     SECRET_KEY: ctx.randomString("app-secret"),
     SCORING_VERSION: "1.0.0",
     PORT: "8080",
+    UVICORN_HOST: "0.0.0.0",
     DATABASE_URL: db.env.DATABASE_URL,
     REDIS_URL: cache.env.REDIS_URL,
     CELERY_BROKER_URL: cache.env.REDIS_URL,
