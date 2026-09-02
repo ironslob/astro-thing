@@ -106,7 +106,7 @@ See [`.env.example`](.env.example). Important keys:
 
 ## Catalogue import
 
-Default seed: OpenNGC `data/catalogue/NGC.csv` + `addendum.csv`, plus `data/catalogue/bright_stars.json`. Auto-rank uses objects with a beginner prior of 55 or higher (Andromeda, Orion Nebula, Pleiades, and other northern beginner targets still lead).
+Default seed: OpenNGC `data/catalogue/NGC.csv` + `addendum.csv`, plus `data/catalogue/bright_stars.json`. Auto-rank uses objects with a beginner prior of 55 or higher (Andromeda, Orion Nebula, Pleiades, and other northern beginner targets still lead). Target cards show Wikimedia Commons portraits from `data/catalogue/portraits.json` where we have one.
 
 ```bash
 python -m app.importers.seed

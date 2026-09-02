@@ -68,9 +68,12 @@ def test_import_tiny_csv_and_search(tmp_path: Path) -> None:
     assert andromeda.common_name == "Andromeda Galaxy"
     assert "M31" in andromeda.catalogue_ids
     hits = search_catalogue(db, "Andromeda")
-    assert any(h["id"] == "ngc-224" for h in hits)
+    andromeda = next(h for h in hits if h["id"] == "ngc-224")
+    assert andromeda["image"] is not None
+    assert "upload.wikimedia.org" in andromeda["image"]["url"]
     pleiades = search_catalogue(db, "Pleiades")
     assert any(h["id"] == "mel-22" for h in pleiades)
     planets = search_catalogue(db, "Venus")
-    assert any(h["id"] == "venus" for h in planets)
+    venus = next(h for h in planets if h["id"] == "venus")
+    assert venus["image"] is not None
     db.close()

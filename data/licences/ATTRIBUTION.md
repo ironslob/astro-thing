@@ -30,6 +30,13 @@ Documented here so the product can show and ship required credit. Check these be
 - Shipped under `data/catalogue/` and imported into Postgres at seed time. Ranking uses a beginner-prior subset; object search covers the imported catalogue.
 - Importer: `backend/app/importers/openngc.py`.
 
+## Wikimedia Commons (target portraits)
+- Thumbnails of Messier objects, named nebulae/clusters, major planets and the Moon.
+- Stored as a static map in `data/catalogue/portraits.json` (Wikimedia file URLs, author, licence).
+- Shown on target cards and catalogue search; not fetched from Wikipedia at request time.
+- Licences vary by image (often CC BY / CC BY-SA / CC0 / public domain). Each card credits the author.
+- Attribution in the app footer: “Target photos: Wikimedia Commons”.
+
 ## Bright named stars
 - Small bundled list in `data/catalogue/bright_stars.json` with public J2000 coordinates (Yale Bright Star Catalogue / IAU common names).
 - Not a live SIMBAD lookup.

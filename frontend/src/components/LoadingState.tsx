@@ -62,6 +62,7 @@ export function TargetsSkeleton() {
         ]}
       />
       <div className="mt-6 rounded-3xl bg-night-card p-5 shadow-card md:p-8">
+        <Bone className="mb-5 h-52 w-full rounded-2xl" />
         <div className="flex justify-between gap-3">
           <Bone className="h-10 w-48" />
           <Bone className="h-7 w-24 rounded-full" />
@@ -73,6 +74,7 @@ export function TargetsSkeleton() {
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         {[0, 1, 2, 3].map((i) => (
           <div key={i} className="rounded-3xl bg-night-card p-5 shadow-card">
+            <Bone className="mb-4 h-40 w-full rounded-2xl" />
             <div className="flex justify-between gap-3">
               <Bone className="h-6 w-36" />
               <Bone className="h-7 w-20 rounded-full" />

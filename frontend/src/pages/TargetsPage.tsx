@@ -68,6 +68,7 @@ export function TargetsPage() {
           getKey={(item: CatalogueMatch) => item.id}
           getLabel={(item: CatalogueMatch) => item.display_name}
           getHint={(item: CatalogueMatch) => item.friendly_type}
+          getImage={(item: CatalogueMatch) => item.image?.url}
           onPick={pickObject}
         />
       </div>

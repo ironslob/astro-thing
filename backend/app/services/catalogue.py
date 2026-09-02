@@ -6,6 +6,7 @@ from app.astronomy.service import PLANET_LABELS
 from app.domain.constants import MAJOR_PLANETS
 from app.models.catalogue import DeepSkyObject
 from app.services.locations import normalize_query
+from app.services.portraits import portrait_for
 
 SOLAR_SYSTEM: list[dict] = [
     {
@@ -34,7 +35,7 @@ def search_catalogue(db: Session, q: str, limit: int = 8) -> list[dict]:
     for item in SOLAR_SYSTEM:
         hay = f"{item['id']} {item['display_name']}".lower()
         if needle in hay:
-            results.append(item)
+            results.append(_with_portrait(item))
             seen.add(item["id"])
     rows = (
         db.query(DeepSkyObject)
@@ -47,14 +48,26 @@ def search_catalogue(db: Session, q: str, limit: int = 8) -> list[dict]:
         if obj.id in seen:
             continue
         results.append(
-            {
-                "id": obj.id,
-                "display_name": obj.common_name or obj.primary_name,
-                "friendly_type": obj.friendly_type,
-                "catalogue_ids": list(obj.catalogue_ids or []),
-            }
+            _with_portrait(
+                {
+                    "id": obj.id,
+                    "display_name": obj.common_name or obj.primary_name,
+                    "friendly_type": obj.friendly_type,
+                    "catalogue_ids": list(obj.catalogue_ids or []),
+                }
+            )
         )
         seen.add(obj.id)
         if len(results) >= limit:
             break
     return results[:limit]
+
+
+def _with_portrait(item: dict) -> dict:
+    return {
+        **item,
+        "image": portrait_for(
+            object_id=item["id"],
+            catalogue_ids=item.get("catalogue_ids") or [],
+        ),
+    }

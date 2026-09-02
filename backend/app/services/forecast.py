@@ -19,6 +19,7 @@ from app.domain.models import NormalizedForecast, ObservingWindow
 from app.domain.targets import RankedTarget, TargetCandidate, rank_targets, unplaced_target
 from app.domain.windows import generate_windows
 from app.models.catalogue import DeepSkyObject
+from app.services.portraits import portrait_for
 from app.weather.cache import WeatherCacheService
 
 
@@ -340,4 +341,5 @@ def _target_payload(t: RankedTarget) -> dict:
         "featured": t.featured,
         "kind": t.kind,
         "details": t.details,
+        "image": portrait_for(object_id=t.id, catalogue_ids=t.catalogue_ids),
     }
