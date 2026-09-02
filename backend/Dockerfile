@@ -6,11 +6,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml /app/pyproject.toml
-COPY alembic.ini /app/alembic.ini
-COPY alembic /app/alembic
-COPY app /app/app
-COPY entrypoint.sh /app/entrypoint.sh
+COPY backend/pyproject.toml /app/pyproject.toml
+COPY backend/alembic.ini /app/alembic.ini
+COPY backend/alembic /app/alembic
+COPY backend/app /app/app
+COPY backend/entrypoint.sh /app/entrypoint.sh
+COPY data/catalogue /data/catalogue
 RUN pip install --no-cache-dir . && chmod +x /app/entrypoint.sh
 
 ENV PYTHONUNBUFFERED=1

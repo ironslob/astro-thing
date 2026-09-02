@@ -1,0 +1,15 @@
+.git
+.github
+.cursor
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/*.egg-info
+frontend/node_modules
+frontend/dist
+frontend/coverage
+*.db
+*.sqlite
+.env
+.node_modules

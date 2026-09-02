@@ -1,6 +1,16 @@
 from __future__ import annotations
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def sqlalchemy_database_url(url: str) -> str:
+    """Accept postgres:// and postgresql:// URLs from hosts like Railway."""
+    if url.startswith("postgres://"):
+        url = "postgresql://" + url.removeprefix("postgres://")
+    if url.startswith("postgresql://"):
+        url = "postgresql+psycopg://" + url.removeprefix("postgresql://")
+    return url
 
 
 class Settings(BaseSettings):
@@ -12,6 +22,12 @@ class Settings(BaseSettings):
     scoring_version: str = "1.0.0"
 
     database_url: str = "sqlite+pysqlite:///./astro_window.db"
+
+    @field_validator("database_url")
+    @classmethod
+    def use_psycopg_driver(cls, value: str) -> str:
+        return sqlalchemy_database_url(value)
+
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
     celery_result_backend: str = "redis://localhost:6379/2"
